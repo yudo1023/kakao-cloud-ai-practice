@@ -1,0 +1,115 @@
+/* 전체 초기화는 reset.css에서 처리됨 */
+
+body {
+  background-color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Arial", sans-serif;
+}
+
+/* 헤더 */
+header {
+  background-image: url("https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-position: center;
+  padding: 30px;
+  color: white;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+/* 메인과 사이드 버튼 포함하는 컨테이너 */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: 1;
+  padding: 20px;
+}
+
+/* 사이드 버튼 */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+}
+
+.side-link {
+  display: block;
+  background-color: #4caf50;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.side-link:hover {
+  background-color: #45a049;
+}
+
+/* 회원가입 폼이 들어간 메인 박스 */
+.signup-container {
+  background-color: #f0f0f0;
+  padding: 30px;
+  border-radius: 6px;
+  width: 320px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* 폼 내부 스타일 */
+form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+form label {
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 성별 선택 라디오 박스 */
+.gender {
+  margin: 10px 0;
+}
+
+/* 약관 동의 체크박스 */
+.terms {
+  margin: 10px 0;
+}
+
+/* 제출 버튼 */
+.submit-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* 푸터 */
+footer {
+  background-color: #222;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
