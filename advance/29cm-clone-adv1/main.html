@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>감도 깊은 취향 셀렉트샵 29CM (clone)</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+    <div class="site-wrapper">
+        <div class="header-gnb-wrapper">
+            <!-- 1단계 네비게이션 -->
+            <header class="header">
+                <!-- 왼쪽 로고 -->
+                <a href="https://www.29cm.co.kr" class="header__logo">
+                    <img
+                        class="header__logo-img"
+                        src="https://asset.29cm.co.kr/next-contents/2023/06/08/3f8131682d124d16b336774ba51c4a3e_20230608162823.png"
+                        alt="29CM 로고"
+                    />
+                </a>
+
+                <!-- 오른쪽 유틸 네비 -->
+                <nav class="header__nav">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item">
+                            <a class="header__nav-link" href="/">
+                                <span class="header__nav-icon">
+                                    <img src="./icons/header_mypage.svg" alt="My Page" />
+                                </span>
+                                <span class="nav-text">MY PAGE</span>
+                            </a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a class="header__nav-link" href="/">
+                                <span class="header__nav-icon">
+                                    <img src="./icons/header_like.svg" alt="My Like" />
+                                </span>
+                                <span class="nav-text">MY LIKE</span>
+                            </a>
+                        </li>
+                        <li class="header__nav-item header__nav-item--bag">
+                            <a class="header__nav-link" href="/">
+                                <span class="header__nav-icon">
+                                    <img src="./icons/header_bag.svg" alt="Shopping Bag" />
+                                </span>
+                                <span class="nav-text">SHOPPING BAG</span>
+                            </a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a class="header__nav-link" href="/">
+                                <span class="header__nav-icon">
+                                    <img src="./icons/header_login.svg" alt="Login" />
+                                </span>
+                                <span class="nav-text">LOGIN</span>
+                            </a>
+                        </li>
+                        <li class="header__nav-item header__nav-item--search">
+                            <a class="header__nav-link" href="/">
+                                <span class="header__nav-icon">
+                                    <img src="./icons/nav1_search.svg" alt="Search" />
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+
+            <!-- 2단계 네비게이션 -->
+            <nav class="gnb">
+                <!-- 첫 번째 줄: 큰 타이틀 + 검색 -->
+                <div class="gnb__row">
+                  <ul class="gnb__menu">
+                    <li class="gnb__item"><a class="gnb__link" href="/">Special-Order</a></li>
+                    <li class="gnb__item"><a class="gnb__link" href="/">Showcase</a></li>
+                    <li class="gnb__item"><a class="gnb__link" href="/">PT</a></li>
+                    <li class="gnb__item"><a class="gnb__link" href="/">29Magazine</a></li>
+                  </ul>
+                  <button class="gnb__search-btn" type="button" aria-label="검색">
+                    <span class="gnb__search-icon"><img src="./icons/nav1_search.svg" alt="" /></span>
+                  </button>
+                </div>
+              
+                <!-- 두 번째 줄: 카테고리 왼쪽 + Event/Lookbook 오른쪽 -->
+                <div class="gnb2">
+                  <ul class="gnb2__menu font-extrabold">
+                    <li class="gnb2__item"><a class="gnb2__link" href="/">BEST</a></li>
+                    <li class="gnb2__item" data-menu="women"><div class="gnb2__link">WOMEN</div></li>
+                    <li class="gnb2__item" data-menu="men"><div class="gnb2__link">MEN</div></li>
+                    <li class="gnb2__item" data-menu="interior"><div class="gnb2__link">INTERIOR</div></li>
+                    <li class="gnb2__item" data-menu="kitchen"><div class="gnb2__link">KITCHEN</div></li>
+                    <li class="gnb2__item" data-menu="electronics"><div class="gnb2__link">ELECTRONICS</div></li>
+                    <li class="gnb2__item" data-menu="digital"><div class="gnb2__link">DIGITAL</div></li>
+                    <li class="gnb2__item" data-menu="beauty"><div class="gnb2__link">BEAUTY</div></li>
+                    <li class="gnb2__item" data-menu="food"><div class="gnb2__link">FOOD</div></li>
+                    <li class="gnb2__item" data-menu="leisure"><div class="gnb2__link">LEISURE</div></li>
+                    <li class="gnb2__item" data-menu="kids"><div class="gnb2__link">KIDS</div></li>
+                    <li class="gnb2__item" data-menu="culture"><div class="gnb2__link">CULTURE</div></li>
+                    <li class="gnb2__item" data-menu="earth"><div class="gnb2__link">EARTH</div></li>
+                    <div class="gnb2__divider"></div>
+                    <li class="gnb2__item gnb2__item--extra"><a class="gnb2__extra" href="/">Event</a></li>
+                    <li class="gnb2__item gnb2__item--extra"><a class="gnb2__extra" href="/">Lookbook</a></li>
+                  </ul>
+                </div>
+              
+                <!-- 서브메뉴 영역 -->
+                <div id="submenu-container" aria-live="polite"></div>
+              </nav>
+        </div>
+    </div>
+
+    <main>
+
+    </main>
+
+    <div>
+        <footer>
+
+        </footer>
+    </div>
+
+    <div>
+
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
