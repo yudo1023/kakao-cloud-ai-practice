@@ -6,70 +6,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>감도 깊은 취향 셀렉트샵 29CM (clone)</title>
     <link rel="stylesheet" href="./css/reset.css" />
-    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/styles2.css" />
   </head>
   <body>
     <div class="site-wrapper">
       <!-- ===== 헤더 ===== -->
-      <div class="header-gnb-wrapper">
-        <header class="header">
-          <a
-            href="https://www.29cm.co.kr"
-            class="header__logo"
-            aria-label="29CM 홈"
-          >
-            <img
-              class="header__logo-img"
+      <header class="header">
+        <!-- 헤더 최상단 영역(로고+아이콘) -->
+        <div class="header-top">
+          <div class="header-top-logo">
+            <a href="https://www.29cm.co.kr" class="header__logo" aria-label="29CM 홈">
+            <img class="header-top-logo-img"
               src="https://asset.29cm.co.kr/next-contents/2023/06/08/3f8131682d124d16b336774ba51c4a3e_20230608162823.png"
-              alt="29CM"
-            />
+              alt="29CM"/>
           </a>
-          <nav class="header__nav" aria-label="유틸">
-            <ul class="header__nav-list">
-              <li class="header__nav-item">
-                <a class="header__nav-link" href="/"
-                  ><span class="header__nav-icon"
-                    ><img src="./icons/header_mypage.svg" alt="" /></span
-                  ><span class="nav-text">MY PAGE</span></a
-                >
-              </li>
-              <li class="header__nav-item">
-                <a class="header__nav-link" href="/"
-                  ><span class="header__nav-icon"
-                    ><img src="./icons/header_like.svg" alt="" /></span
-                  ><span class="nav-text">MY LIKE</span></a
-                >
-              </li>
-              <li class="header__nav-item header__nav-item--bag">
-                <a class="header__nav-link" href="/"
-                  ><span class="header__nav-icon"
-                    ><img src="./icons/header_bag.svg" alt="" /></span
-                  ><span class="nav-text">SHOPPING BAG</span></a
-                >
-              </li>
-              <li class="header__nav-item">
-                <a class="header__nav-link" href="/"
-                  ><span class="header__nav-icon"
-                    ><img src="./icons/header_login.svg" alt="" /></span
-                  ><span class="nav-text">LOGIN</span></a
-                >
-              </li>
-              <li class="header__nav-item header__nav-item--search">
-                <button
-                  class="header__nav-link js-open-search"
-                  aria-label="검색 열기"
-                >
-                  <span class="header__nav-icon"
-                    ><img src="./icons/nav1_search.svg" alt=""
-                  /></span>
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </header>
+          </div>
+          <div class="header-top-action">
+            <nav class="header-top-nav" aria-label="유틸">
+              <ul class="header-top-nav-list">
+                <li class="header-top-nav-item">
+                  <a class="header-top-nav-link" href="/">
+                    <span class="header-top-nav-icon">
+                      <img src="./icons/header_mypage.svg" alt="" />
+                    </span>
+                    <span class="header-top-nav-text">MY PAGE</span>
+                  </a>
+                </li>
+                <li class="header-top-nav-item">
+                  <a class="header-top-nav-link" href="/">
+                    <span class="header-top-nav-icon">
+                      <img src="./icons/header_like.svg" alt="" />
+                    </span>
+                    <span class="header-top-nav-text">MY LIKE</span>
+                  </a>
+                </li>
+                <li class="header-top-nav-item">
+                  <a class="header-top-nav-link" href="/">
+                    <span class="header-top-nav-icon header-top-nav-item-bag">
+                      <img src="./icons/header_bag.svg" alt="" />
+                      </span>
+                      <span class="header-top-nav-text">SHOPPING BAG</span>
+                    </a>
+                </li>
+                <li class="header-top-nav-item">
+                  <a class="header-top-nav-link" href="/">
+                    <span class="header-top-nav-icon">
+                      <img src="./icons/header_login.svg" alt="" />
+                    </span>
+                    <span class="header-top-nav-text">LOGIN</span>
+                  </a>
+                </li>
+                <li class="header-top-nav-item header-top-nav-item-search">
+                  <button class="header-top-nav-link" aria-label="검색 열기">
+                    <span class="header-top-nav-icon">
+                      <img src="./icons/nav1_search.svg" alt="" />
+                    </span>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
 
-        <!-- 1행 -->
-        <nav class="gnb" aria-label="주요 메뉴">
+        <!-- 헤더 중간 영역 -->
+        <!-- <nav class="gnb" aria-label="주요 메뉴">
           <div class="gnb__row">
             <ul class="gnb__menu">
               <li class="gnb__item">
@@ -93,8 +93,6 @@
               /></span>
             </button>
           </div>
-
-          <!-- 2행: 카테고리 -->
           <div class="gnb2">
             <ul class="gnb2__menu font-extrabold">
               <li class="gnb2__item">
@@ -145,11 +143,89 @@
               </li>
             </ul>
           </div>
+          <div id="submenu-container" aria-live="polite"></div>
+        </nav> -->
+
+        <!-- 헤더 중간 영역 + 하단 영역 -->
+        <div class="header-nav-menu">
+          <!-- 헤더 중간 영역(페이지 네비게이션) -->
+          <div class="header-nav">
+            <ul class="header-nav-list">
+              <li class="header-nav-item">
+                <a class="header-nav-link" href="/">Special-Order</a>
+              </li>
+              <li class="header-nav-item">
+                <a class="header-nav-link" href="/">Showcase</a>
+              </li>
+              <li class="header-nav-item">
+                <a class="header-nav-link" href="/">PT</a></li>
+              <li class="header-nav-item">
+                <a class="header-nav-link" href="/">29Magazine</a>
+              </li>
+            </ul>
+            <button class="header-nav-search-btn" type="button" aria-label="검색">
+              <span class="header-nav-search-icon">
+                <img src="./icons/nav1_search.svg" alt=""/>
+              </span>
+            </button>
+          </div>
+
+          <!-- 헤더 하단 영역(메뉴+토글) -->
+          <div class="header-menu">
+            <ul class="header-menu-list">
+              <li class="header-menu-item">
+                <a class="gnb2__link" href="/">BEST</a>
+              </li>
+              <li class="header-menu-item" data-menu="women">
+                <button class="header-menu-link" type="button">WOMEN</button>
+              </li>
+              <li class="header-menu-item" data-menu="men">
+                <button class="header-menu-link" type="button">MEN</button>
+              </li>
+              <li class="header-menu-item" data-menu="interior">
+                <button class="header-menu-link" type="button">INTERIOR</button>
+              </li>
+              <li class="header-menu-item" data-menu="kitchen">
+                <button class="header-menu-link" type="button">KITCHEN</button>
+              </li>
+              <li class="header-menu-item" data-menu="electronics">
+                <button class="header-menu-link" type="button">ELECTRONICS</button>
+              </li>
+              <li class="header-menu-item" data-menu="digital">
+                <button class="header-menu-link" type="button">DIGITAL</button>
+              </li>
+              <li class="header-menu-item" data-menu="beauty">
+                <button class="header-menu-link" type="button">BEAUTY</button>
+              </li>
+              <li class="header-menu-item" data-menu="food">
+                <button class="header-menu-link" type="button">FOOD</button>
+              </li>
+              <li class="header-menu-item" data-menu="leisure">
+                <button class="header-menu-link" type="button">LEISURE</button>
+              </li>
+              <li class="header-menu-item" data-menu="kids">
+                <button class="header-menu-link" type="button">KIDS</button>
+              </li>
+              <li class="header-menu-item" data-menu="culture">
+                <button class="header-menu-link" type="button">CULTURE</button>
+              </li>
+              <li class="header-menu-item" data-menu="earth">
+                <button class="header-menu-link" type="button">EARTH</button>
+              </li>
+              <div class="header-menu-divider" aria-hidden="true"></div>
+              <li class="header-menu-item header-menu-item-extra">
+                <a class="header-menu-extra" href="/">Event</a>
+              </li>
+              <li class="header-menu-item header-menu-item-extra">
+                <a class="header-menu-extra" href="/">Lookbook</a>
+              </li>
+            </ul>
+          </div>
 
           <!-- 서브메뉴 -->
           <div id="submenu-container" aria-live="polite"></div>
-        </nav>
-      </div>
+        </div>
+      </header>
 
       <!-- ===== 메인 ===== -->
       <main class="home">
@@ -395,6 +471,6 @@
         
       </footer>
     </div>
-    <script src="./js/script.js"></script>
+    <script src="./js/script2.js"></script>
   </body>
 </html>

@@ -65,8 +65,8 @@ function el(tag, attrs = {}, children = []) {
 }
 
 (function () {
-  const gnb = document.querySelector(".gnb");
-  const menuWrap = document.querySelector(".gnb2");
+  const headerNavMenu = document.querySelector(".header-nav-menu");
+  const menuWrap = document.querySelector(".header-menu");
   const submenuBox = document.getElementById("submenu-container");
   if (!menuWrap || !submenuBox) return;
 
@@ -77,15 +77,15 @@ function el(tag, attrs = {}, children = []) {
     if (!sections) return null;
 
     const mega = el("div", { class: "mega", role: "region", "aria-label": key });
-    const grid = el("div", { class: "mega__grid" });
+    const grid = el("div", { class: "mega-grid" });
 
     sections.forEach(sec => {
-      const section = el("section", { class: "mega__section" });
-      const h3 = el("h2", { class: "mega__title", text: sec.title });
-      const ul = el("ul", { class: "mega__list" });
+      const section = el("section", { class: "mega-section" });
+      const h3 = el("h2", { class: "mega-title", text: sec.title });
+      const ul = el("ul", { class: "mega-list" });
 
       sec.items.forEach(it => {
-        const li = el("li", { class: "mega__item" });
+        const li = el("li", { class: "mega-item" });
         const a = el("a", { href: `/${key}/${encodeURIComponent(it)}` }, it);
         li.appendChild(a);
         ul.appendChild(li);
@@ -109,13 +109,13 @@ function el(tag, attrs = {}, children = []) {
     submenuBox.classList.add("active");
     openKey = key;
 
-    const current = menuWrap.querySelector(`.gnb2__item[data-menu="${key}"] .gnb2__link`);
+    const current = menuWrap.querySelector(`.header-menu-item[data-menu="${key}"] .header-menu-link`);
     if (current) current.setAttribute("aria-expanded", "true");
   }
 
   function close() {
     if (openKey) {
-      const prev = menuWrap.querySelector(`.gnb2__item[data-menu="${openKey}"] .gnb2__link`);
+      const prev = menuWrap.querySelector(`.header-menu-item[data-menu="${openKey}"] .header-menu-link`);
       if (prev) prev.setAttribute("aria-expanded", "false");
     }
     submenuBox.classList.remove("active");
@@ -125,25 +125,25 @@ function el(tag, attrs = {}, children = []) {
 
   // 호버 시 열기
   menuWrap.addEventListener("pointerover", (e) => {
-    const li = e.target.closest(".gnb2__item[data-menu]");
+    const li = e.target.closest(".header-menu-item[data-menu]");
     if (!li || !menuWrap.contains(li)) return;
     open(li.dataset.menu);
   });
 
   menuWrap.addEventListener("click", (e) => {
-    const link = e.target.closest(".gnb2__item[data-menu] .gnb2__link");
+    const link = e.target.closest(".header-menu-item[data-menu] .header-menu-link");
     if (!link) return;
     e.preventDefault();
-    const li = link.closest(".gnb2__item[data-menu]");
+    const li = link.closest(".header-menu-item[data-menu]");
     open(li.dataset.menu);
   });
 
 
-  gnb.addEventListener("pointerleave", () => close());
+  headerNavMenu.addEventListener("pointerleave", () => close());
 
-  // ✅ 바깥 클릭 시 닫기
+  // 바깥 클릭 시 닫기
   document.addEventListener("click", (e) => {
-    if (!gnb.contains(e.target)) close();
+    if (!headerNavMenu.contains(e.target)) close();
   });
 
   // 바깥 클릭으로 닫는 동작도 유지하고 싶으면 주석 해제
