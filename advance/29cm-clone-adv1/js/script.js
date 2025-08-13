@@ -1,6 +1,6 @@
-// ./js/script.js
+// script_plain_dom.js  — script2.js 스타일(순수 DOM API)로 변환 버전
 
-// 1) 서브메뉴 데이터 (그대로 사용)
+// 1) 서브메뉴 데이터 (원본 그대로)
 const submenuData = {
   women: [
     { title: "의류", items: ["해외브랜드","단독","상의","바지","셋업","점프수트","원피스","스커트","아우터","니트웨어","언더웨어","홈웨어","파티룩/행사복"] },
@@ -48,52 +48,58 @@ const submenuData = {
   ],
 };
 
-// 2) DOM 헬퍼
-function el(tag, attrs = {}, children = []) {
-  const node = document.createElement(tag);
-  for (const [k, v] of Object.entries(attrs)) {
-    if (k === "class") node.className = v;
-    else if (k === "text") node.textContent = v;
-    else if (k.startsWith("aria-")) node.setAttribute(k, v);
-    else if (k === "dataset" && v && typeof v === "object") {
-      for (const [dk, dv] of Object.entries(v)) node.dataset[dk] = dv;
-    } else if (k === "href" || k === "role") node.setAttribute(k, v);
-    else node.setAttribute(k, v);
-  }
-  (Array.isArray(children) ? children : [children]).forEach(c => node.append(c));
-  return node;
-}
+document.addEventListener("DOMContentLoaded", function () {
+  var headerNavMenu = document.querySelector(".header-nav-menu");
+  var menuWrap = document.querySelector(".header-menu");
+  var submenuBox = document.getElementById("submenu-container");
+  if (!menuWrap || !submenuBox || !headerNavMenu) return;
 
-(function () {
-  const headerNavMenu = document.querySelector(".header-nav-menu");
-  const menuWrap = document.querySelector(".header-menu");
-  const submenuBox = document.getElementById("submenu-container");
-  if (!menuWrap || !submenuBox) return;
+  var openKey = null;
 
-  let openKey = null;
-
+  // 서브메뉴 구성
   function buildSubmenu(key) {
-    const sections = submenuData[key];
+    var sections = submenuData[key];
     if (!sections) return null;
 
-    const mega = el("div", { class: "mega", role: "region", "aria-label": key });
-    const grid = el("div", { class: "mega-grid" });
+    var mega = document.createElement("div");
+    mega.setAttribute("class", "mega");
+    mega.setAttribute("role", "region");
+    mega.setAttribute("aria-label", key);
 
-    sections.forEach(sec => {
-      const section = el("section", { class: "mega-section" });
-      const h3 = el("h2", { class: "mega-title", text: sec.title });
-      const ul = el("ul", { class: "mega-list" });
+    var grid = document.createElement("div");
+    grid.setAttribute("class", "mega-grid");
 
-      sec.items.forEach(it => {
-        const li = el("li", { class: "mega-item" });
-        const a = el("a", { href: `/${key}/${encodeURIComponent(it)}` }, it);
+    for (var i = 0; i < sections.length; i++) {
+      var sec = sections[i];
+
+      var section = document.createElement("section");
+      section.setAttribute("class", "mega-section");
+
+      var h2 = document.createElement("h2");
+      h2.setAttribute("class", "mega-title");
+      h2.appendChild(document.createTextNode(sec.title));
+
+      var ul = document.createElement("ul");
+      ul.setAttribute("class", "mega-list");
+
+      for (var j = 0; j < sec.items.length; j++) {
+        var it = sec.items[j];
+
+        var li = document.createElement("li");
+        li.setAttribute("class", "mega-item");
+
+        var a = document.createElement("a");
+        a.setAttribute("href", "/" + key + "/" + encodeURIComponent(it));
+        a.appendChild(document.createTextNode(it));
+
         li.appendChild(a);
         ul.appendChild(li);
-      });
+      }
 
-      section.append(h3, ul);
+      section.appendChild(h2);
+      section.appendChild(ul);
       grid.appendChild(section);
-    });
+    }
 
     mega.appendChild(grid);
     return mega;
@@ -102,53 +108,54 @@ function el(tag, attrs = {}, children = []) {
   function open(key) {
     if (openKey === key) return;
     close();
-    const content = buildSubmenu(key);
+
+    var content = buildSubmenu(key);
     if (!content) return;
 
     submenuBox.appendChild(content);
     submenuBox.classList.add("active");
     openKey = key;
 
-    const current = menuWrap.querySelector(`.header-menu-item[data-menu="${key}"] .header-menu-link`);
+    var selector = '.header-menu-item[data-menu="' + key + '"] .header-menu-link';
+    var current = menuWrap.querySelector(selector);
     if (current) current.setAttribute("aria-expanded", "true");
   }
 
   function close() {
     if (openKey) {
-      const prev = menuWrap.querySelector(`.header-menu-item[data-menu="${openKey}"] .header-menu-link`);
+      var prevSelector = '.header-menu-item[data-menu="' + openKey + '"] .header-menu-link';
+      var prev = menuWrap.querySelector(prevSelector);
       if (prev) prev.setAttribute("aria-expanded", "false");
     }
     submenuBox.classList.remove("active");
-    while (submenuBox.firstChild) submenuBox.removeChild(submenuBox.firstChild);
+    while (submenuBox.firstChild) {
+      submenuBox.removeChild(submenuBox.firstChild);
+    }
     openKey = null;
   }
 
-  // 호버 시 열기
-  menuWrap.addEventListener("pointerover", (e) => {
-    const li = e.target.closest(".header-menu-item[data-menu]");
+  // 이벤트 바인딩
+  menuWrap.addEventListener("pointerover", function (e) {
+    var li = e.target.closest(".header-menu-item[data-menu]");
     if (!li || !menuWrap.contains(li)) return;
     open(li.dataset.menu);
   });
 
-  menuWrap.addEventListener("click", (e) => {
-    const link = e.target.closest(".header-menu-item[data-menu] .header-menu-link");
+  menuWrap.addEventListener("click", function (e) {
+    var link = e.target.closest(".header-menu-item[data-menu] .header-menu-link");
     if (!link) return;
     e.preventDefault();
-    const li = link.closest(".header-menu-item[data-menu]");
+    var li = link.closest(".header-menu-item[data-menu]");
     open(li.dataset.menu);
   });
 
-
-  headerNavMenu.addEventListener("pointerleave", () => close());
+  headerNavMenu.addEventListener("pointerleave", function () {
+    close();
+  });
 
   // 바깥 클릭 시 닫기
-  document.addEventListener("click", (e) => {
+  document.addEventListener("click", function (e) {
     if (!headerNavMenu.contains(e.target)) close();
   });
 
-  // 바깥 클릭으로 닫는 동작도 유지하고 싶으면 주석 해제
-  // document.addEventListener("click", (e) => {
-  //   if (!menuWrap.contains(e.target) && !submenuBox.contains(e.target)) close();
-  // });
-})();
-
+});
