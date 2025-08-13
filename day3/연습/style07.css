@@ -1,0 +1,19 @@
+/* 기본 스타일 */
+.button {
+    background-color: lightseagreen;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    width: 150px;                                   /* 기본 너비 설정 */
+    transition-property: background-color, width;   /* 배경색과 너비에 트랜지션 적용 */
+    transition-duration: 0.7s;                      /* 트랜지션 지속 시간 0.7초 설정 */
+    transition-timing-function: ease-in-out;        /* 부드럽게 시작하고 끝남 */
+    transition-delay: 0.2s;                         /* 트랜지션 시작 전에 0.2초 지연 */ 
+}
+
+/* 호버 상태에서 스타일 변경 */
+.button:hover {
+    background-color: mediumseagreen;   /* 배경색 변경 */
+    width: 200px;                         /* 너비 변경 */
+}

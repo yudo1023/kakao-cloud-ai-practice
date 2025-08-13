@@ -1,0 +1,33 @@
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* 박스모델 적용 */
+.box {
+    width: 300px;               /* 박스의 너비 */
+    height: 150px;              /* 박스의 높이 */
+    padding: 20px;              /* 내부 여백 (콘텐츠와 테두리 사이) */
+    border: 2px solid #333;   /* 테두리 (두께, 스타일, 색상) */
+    margin : 20px auto;         /* 외부 여백 (박스 바깥쪽 이력) */
+    background-color: #fff;   /* 박스의 배경색 */
+    display: block;             /* 박스를 블록 요소로 설정 */
+    overflow: auto;             /* 넘치는 콘텐츠에 스크롤바 추가 */
+}
+
+p {
+    margin: 0 0 10px 0;         /* 문단의 아래 여백 설정 */
+}
+
+/* 투명도 적용 */
+.transparent {
+    opacity: 0.7;               /* 박스의 투명도 설정 (70% 불투명) */
+}

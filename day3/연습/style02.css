@@ -1,0 +1,22 @@
+/* 자손 선택자 */
+div p {
+    color: red;
+}
+
+/* 자식 선택자 */
+ul > li {
+    color: green;
+    font-weight: bold;
+}
+
+/* 인접 형제 선택자 */
+h1 + p {
+    color: blue;
+    font-size: 10px;
+}
+
+/* 일반 형제 선택자 */
+h1 ~ p {
+    color: orange;
+    font-style: italic;
+}

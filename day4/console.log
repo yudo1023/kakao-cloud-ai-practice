@@ -1,0 +1,217 @@
+// 변수와 상수
+
+console.log('Hello World!');    //Hello World!
+
+let data = 0;
+console.log('data type is : ' + typeof data);   //data type is : number
+
+console.log('Hello World!');    // console.log('Hello World!');
+
+let a;
+let a = 10;
+console.log(a);     // Uncaught SyntaxError: Identifier 'a' has already been declared
+
+let a;
+a = 10;
+console.log(a);     // 10
+
+a = 20;
+console.log(a);     // 20
+
+const b;            // Uncaught SyntaxError: Missing initializer in const declaration
+
+const b = 30;
+console.log(b);
+b = 40; 
+// 30
+// Uncaught TypeError: Assignment to constant variable.
+
+// 자료형
+
+let name_a = "곽유정";
+let text_a = "안녕하세요 저는 " + name_a + "입니다.";
+console.log(text_a);    // 안녕하세요 저는 곽유정입니다.
+
+let text_b = `안녕하세요 저는 ${name_a}입니다.`;
+console.log(text_b);    // 안녕하세요 저는 곽유정입니다.
+
+let text_c = "안녕하세요 저는 "곽유정"입니다."      // Uncaught SyntaxError: Unexpected identifier '곽유정'
+
+let text_c = "안녕하세요 저는 \"곽유정\"입니다."
+console.log(text_c);    // 안녕하세요 저는 "곽유정"입니다.
+
+let text_d = "안녕하세요"
+            +"저는 곽유정입니다.";
+console.log(text_d);    // 안녕하세요저는 곽유정입니다.
+
+text_d = "안녕하세요\n"
+        +"저는 곽유정입니다.";
+console.log(text_d);
+// 안녕하세요
+// 저는 곽유정입니다.
+
+let num_a = 11;
+let str_a = "22";
+let sum_a = num_a + str_a;
+console.log(sum_a);
+console.log(typeof sum_a);
+// 4 1122
+// 5 string
+
+let a;
+console.log(typeof a);
+// undefined
+
+let b = null;
+console.log(typeof b);
+// object
+
+let c = 10;
+console.log(a+c);
+// NaN
+
+console.log(b+c);
+// 10
+
+let num_a = 10;
+let str_a = "10";
+console.log(num_a == str_a);
+console.log(num_a === str_a);
+// true
+// false
+
+
+let a = 5;
+let b = ++a;
+console.log(a);
+console.log(b);
+
+let c = a++;
+console.log(a);
+console.log(c);
+// 6
+// 6
+// 7
+// 6
+
+
+// 객체
+
+let person = {
+    name: "곽유정",
+    age: 30,
+    job: "백수"
+};
+
+console.log(person["name"]); //객체안의 키를 적어 값을 도출
+console.log(person.name);
+// 곽유정
+// 곽유정
+
+person.age = 31;
+person.gender = "female";
+console.log(person);
+// {name: '곽유정', age: 31, job: '백수', gender: 'female'}
+
+const student = {
+    name: "곽유정",
+    age: 30
+};
+
+student.age = 31;
+
+student.isStudent = true;
+
+console.log(student);
+// {name: '곽유정', age: 31, isStudent: true}
+
+student = { name: "홍길동" };
+// Uncaught TypeError: Assignment to constant variable.
+
+let fruits = [ "apple", "banana", "cherry" ];
+console.log(fruits[0]);
+console.log(fruits[1]);
+console.log(fruits[2]);
+// apple
+// banana
+// cherry
+
+console.log(fruits.0);
+console.log(fruits.1);
+console.log(fruits.2);
+// Uncaught SyntaxError: missing ) after argument list
+
+fruits.push("melon");
+console.log(fruits);
+// (4)['apple', 'banana', 'cherry', 'melon']
+
+fruits.pop();
+console.log(fruits);
+
+fruits.shift();
+console.log(fruits);
+// (3)['apple', 'banana', 'cherry']
+// (2)['banana', 'cherry']
+
+let age = 18;
+
+if(age >= 18) {
+    console.log("You are eligible to vote.");
+} else {
+    console.log("You are not eligible to vote.");
+};
+// You are eligible to vote.
+
+let score = 85;
+
+if(score >= 90) {
+    console.log("A");
+}else{
+    if(score >= 80) {
+        console.log("B");
+    }else{
+        if(score >= 70) {
+    
+            console.log("C");
+        }else {
+            console.log("F");
+        }
+    }
+};
+// C
+
+if(score >= 90) {
+    console.log("A");
+}else if(score >= 80) {
+        console.log("B");
+    }else if(score >= 78) {
+            console.log("C");
+        }else {
+            console.log("F");
+        };
+VM7563:6 C
+undefined
+let age = 20;
+let canVote = (age >= 18) ?
+console.log(canVote);
+VM7813:3 Uncaught SyntaxError: Unexpected token ';'
+let age = 20;
+let canVote = (age >= 18) ? "You can vote." : "You cannot vote.";
+console.log(canVote);
+VM7853:3 You can vote.
+undefined
+let grade = ( score >= 90 ) ? "A" :
+            ( score >= 80 ) ? "B" :
+            ( score >= 70 ) ? "C" :
+            ( score >= 60 ) > "D" : "F";
+console.log(grade);
+VM8275:4 Uncaught SyntaxError: Unexpected token ':'
+let grade = ( score >= 90 ) ? "A" :
+            ( score >= 80 ) ? "B" :
+            ( score >= 70 ) ? "C" :
+            ( score >= 60 ) ? "D" : "F";
+console.log(grade);
+VM8279:5 B
+undefined
+
+
