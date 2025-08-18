@@ -89,8 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
         li.setAttribute("class", "mega-item");
 
         var a = document.createElement("a");
-        a.setAttribute("href", "/" + key + "/" + encodeURIComponent(it));
-        a.appendChild(document.createTextNode(it));
+        a.setAttribute("href", "/");
+        // a.setAttribute("href", "/" + key + "/" + encodeURIComponent(it));
+        // a.appendChild(document.createTextNode(it));
 
         li.appendChild(a);
         ul.appendChild(li);

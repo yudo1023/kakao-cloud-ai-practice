@@ -15,17 +15,23 @@
         <!-- 헤더 최상단 영역(로고+아이콘) -->
         <div class="header-top">
           <div class="header-top-logo">
-            <a href="https://www.29cm.co.kr" class="header__logo" aria-label="29CM 홈">
-            <img class="header-top-logo-img"
-              src="https://asset.29cm.co.kr/next-contents/2023/06/08/3f8131682d124d16b336774ba51c4a3e_20230608162823.png"
-              alt="29CM"/>
-          </a>
+            <a
+              href="https://www.29cm.co.kr"
+              class="header__logo"
+              aria-label="29CM 홈"
+            >
+              <img
+                class="header-top-logo-img"
+                src="https://asset.29cm.co.kr/next-contents/2023/06/08/3f8131682d124d16b336774ba51c4a3e_20230608162823.png"
+                alt="29CM"
+              />
+            </a>
           </div>
           <div class="header-top-action">
             <nav class="header-top-nav" aria-label="유틸">
               <ul class="header-top-nav-list">
                 <li class="header-top-nav-item">
-                  <a class="header-top-nav-link" href="/">
+                  <a class="header-top-nav-link">
                     <span class="header-top-nav-icon">
                       <img src="./icons/header_mypage.svg" alt="" />
                     </span>
@@ -33,23 +39,23 @@
                   </a>
                 </li>
                 <li class="header-top-nav-item">
-                  <a class="header-top-nav-link" href="/">
+                  <a class="header-top-nav-link">
                     <span class="header-top-nav-icon">
                       <img src="./icons/header_like.svg" alt="" />
                     </span>
                     <span class="header-top-nav-text">MY LIKE</span>
                   </a>
                 </li>
-                <li class="header-top-nav-item">
-                  <a class="header-top-nav-link" href="/">
-                    <span class="header-top-nav-icon header-top-nav-item-bag">
+                <li class="header-top-nav-item header-top-nav-item-bag">
+                  <a class="header-top-nav-link">
+                    <span class="header-top-nav-icon">
                       <img src="./icons/header_bag.svg" alt="" />
-                      </span>
-                      <span class="header-top-nav-text">SHOPPING BAG</span>
-                    </a>
+                    </span>
+                    <span class="header-top-nav-text">SHOPPING BAG</span>
+                  </a>
                 </li>
                 <li class="header-top-nav-item">
-                  <a class="header-top-nav-link" href="/">
+                  <a class="header-top-nav-link">
                     <span class="header-top-nav-icon">
                       <img src="./icons/header_login.svg" alt="" />
                     </span>
@@ -74,20 +80,25 @@
           <div class="header-nav">
             <ul class="header-nav-list">
               <li class="header-nav-item">
-                <a class="header-nav-link" href="/">Special-Order</a>
+                <a class="header-nav-link">Special-Order</a>
               </li>
               <li class="header-nav-item">
-                <a class="header-nav-link" href="/">Showcase</a>
+                <a class="header-nav-link">Showcase</a>
               </li>
               <li class="header-nav-item">
-                <a class="header-nav-link" href="/">PT</a></li>
+                <a class="header-nav-link">PT</a>
+              </li>
               <li class="header-nav-item">
-                <a class="header-nav-link" href="/">29Magazine</a>
+                <a class="header-nav-link">29Magazine</a>
               </li>
             </ul>
-            <button class="header-nav-search-btn" type="button" aria-label="검색">
+            <button
+              class="header-nav-search-btn"
+              type="button"
+              aria-label="검색"
+            >
               <span class="header-nav-search-icon">
-                <img src="./icons/nav1_search.svg" alt=""/>
+                <img src="./icons/nav1_search.svg" alt="" />
               </span>
             </button>
           </div>
@@ -96,7 +107,7 @@
           <div class="header-menu">
             <ul class="header-menu-list">
               <li class="header-menu-item">
-                <a class="gnb2__link" href="/">BEST</a>
+                <a class="header-menu-link">BEST</a>
               </li>
               <li class="header-menu-item" data-menu="women">
                 <button class="header-menu-link" type="button">WOMEN</button>
@@ -111,7 +122,9 @@
                 <button class="header-menu-link" type="button">KITCHEN</button>
               </li>
               <li class="header-menu-item" data-menu="electronics">
-                <button class="header-menu-link" type="button">ELECTRONICS</button>
+                <button class="header-menu-link" type="button">
+                  ELECTRONICS
+                </button>
               </li>
               <li class="header-menu-item" data-menu="digital">
                 <button class="header-menu-link" type="button">DIGITAL</button>
@@ -136,10 +149,10 @@
               </li>
               <div class="header-menu-divider" aria-hidden="true"></div>
               <li class="header-menu-item header-menu-item-extra">
-                <a class="header-menu-extra" href="/">Event</a>
+                <a class="header-menu-extra">Event</a>
               </li>
               <li class="header-menu-item header-menu-item-extra">
-                <a class="header-menu-extra" href="/">Lookbook</a>
+                <a class="header-menu-extra">Lookbook</a>
               </li>
             </ul>
           </div>
@@ -152,277 +165,908 @@
       <!-- ===== 메인 ===== -->
       <main class="home">
         <!-- 왼쪽 영역 -->
-        <div class="home__col home__col--left">
-          <a class="tile" href="/">
+        <div class="home-col home-col-left">
+          <a class="tile">
             <img
               alt="EASTLOGUE"
               loading="lazy"
-              src="https://img.29cm.co.kr/next-contents/2025/08/11/cfea0380d0464f4a8510e517ff61e068_20250811170106.jpg?width=3840&format=webp"
-              srcset="
-                https://img.29cm.co.kr/next-contents/2025/08/11/cfea0380d0464f4a8510e517ff61e068_20250811170106.jpg?width=375&format=webp   375w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/cfea0380d0464f4a8510e517ff61e068_20250811170106.jpg?width=408&format=webp   408w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/cfea0380d0464f4a8510e517ff61e068_20250811170106.jpg?width=564&format=webp   564w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/cfea0380d0464f4a8510e517ff61e068_20250811170106.jpg?width=720&format=webp   720w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/cfea0380d0464f4a8510e517ff61e068_20250811170106.jpg?width=828&format=webp   828w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/cfea0380d0464f4a8510e517ff61e068_20250811170106.jpg?width=1080&format=webp 1080w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/cfea0380d0464f4a8510e517ff61e068_20250811170106.jpg?width=1440&format=webp 1440w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/cfea0380d0464f4a8510e517ff61e068_20250811170106.jpg?width=1920&format=webp 1920w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/cfea0380d0464f4a8510e517ff61e068_20250811170106.jpg?width=2048&format=webp 2048w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/cfea0380d0464f4a8510e517ff61e068_20250811170106.jpg?width=3840&format=webp 3840w
-              "
-              sizes="(min-width: 541px) 50vw, 100vw"
+              decoding="async"
+              src="https://img.29cm.co.kr/next-contents/2025/08/11/cfea0380d0464f4a8510e517ff61e068_20250811170106.jpg?width=720&format=webp"
             />
           </a>
-          <a class="tile" href="/">
+          <a class="tile">
             <img
               alt="BEAUTY ROUTINE"
               loading="lazy"
-              src="https://img.29cm.co.kr/next-contents/2025/08/11/02721b8d315d402d9d8b3b6cc1172da6_20250811170041.jpg?width=3840&format=webp"
-              srcset="
-                https://img.29cm.co.kr/next-contents/2025/08/11/02721b8d315d402d9d8b3b6cc1172da6_20250811170041.jpg?width=375&format=webp   375w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/02721b8d315d402d9d8b3b6cc1172da6_20250811170041.jpg?width=408&format=webp   408w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/02721b8d315d402d9d8b3b6cc1172da6_20250811170041.jpg?width=564&format=webp   564w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/02721b8d315d402d9d8b3b6cc1172da6_20250811170041.jpg?width=720&format=webp   720w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/02721b8d315d402d9d8b3b6cc1172da6_20250811170041.jpg?width=828&format=webp   828w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/02721b8d315d402d9d8b3b6cc1172da6_20250811170041.jpg?width=1080&format=webp 1080w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/02721b8d315d402d9d8b3b6cc1172da6_20250811170041.jpg?width=1440&format=webp 1440w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/02721b8d315d402d9d8b3b6cc1172da6_20250811170041.jpg?width=1920&format=webp 1920w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/02721b8d315d402d9d8b3b6cc1172da6_20250811170041.jpg?width=2048&format=webp 2048w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/02721b8d315d402d9d8b3b6cc1172da6_20250811170041.jpg?width=3840&format=webp 3840w
-              "
-              sizes="(min-width: 541px) 50vw, 100vw"
+              decoding="async"
+              src="https://img.29cm.co.kr/next-contents/2025/08/11/02721b8d315d402d9d8b3b6cc1172da6_20250811170041.jpg?width=720&format=webp"
             />
           </a>
-          <a class="tile" href="/">
+          <a class="tile">
             <img
               alt="NINTENDO"
               loading="lazy"
-              src="https://img.29cm.co.kr/next-contents/2025/08/11/6161661426614feaba323d19ba783648_20250811170026.jpg?width=3840&format=webp"
-              srcset="
-                https://img.29cm.co.kr/next-contents/2025/08/11/6161661426614feaba323d19ba783648_20250811170026.jpg?width=375&format=webp   375w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/6161661426614feaba323d19ba783648_20250811170026.jpg?width=408&format=webp   408w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/6161661426614feaba323d19ba783648_20250811170026.jpg?width=564&format=webp   564w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/6161661426614feaba323d19ba783648_20250811170026.jpg?width=720&format=webp   720w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/6161661426614feaba323d19ba783648_20250811170026.jpg?width=828&format=webp   828w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/6161661426614feaba323d19ba783648_20250811170026.jpg?width=1080&format=webp 1080w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/6161661426614feaba323d19ba783648_20250811170026.jpg?width=1440&format=webp 1440w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/6161661426614feaba323d19ba783648_20250811170026.jpg?width=1920&format=webp 1920w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/6161661426614feaba323d19ba783648_20250811170026.jpg?width=2048&format=webp 2048w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/6161661426614feaba323d19ba783648_20250811170026.jpg?width=3840&format=webp 3840w
-              "
-              sizes="(min-width: 541px) 50vw, 100vw"
+              decoding="async"
+              src="https://img.29cm.co.kr/next-contents/2025/08/11/6161661426614feaba323d19ba783648_20250811170026.jpg?width=720&format=webp"
             />
           </a>
-          <a class="tile" href="/">
+          <a class="tile">
             <img
               alt="TILLIDIE"
               loading="lazy"
-              src="https://img.29cm.co.kr/next-contents/2025/08/11/a0990be42e7345ff8df4e28db79071d8_20250811170010.jpg?width=3840&format=webp"
-              srcset="
-                https://img.29cm.co.kr/next-contents/2025/08/11/a0990be42e7345ff8df4e28db79071d8_20250811170010.jpg?width=375&format=webp   375w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/a0990be42e7345ff8df4e28db79071d8_20250811170010.jpg?width=408&format=webp   408w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/a0990be42e7345ff8df4e28db79071d8_20250811170010.jpg?width=564&format=webp   564w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/a0990be42e7345ff8df4e28db79071d8_20250811170010.jpg?width=720&format=webp   720w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/a0990be42e7345ff8df4e28db79071d8_20250811170010.jpg?width=828&format=webp   828w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/a0990be42e7345ff8df4e28db79071d8_20250811170010.jpg?width=1080&format=webp 1080w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/a0990be42e7345ff8df4e28db79071d8_20250811170010.jpg?width=1440&format=webp 1440w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/a0990be42e7345ff8df4e28db79071d8_20250811170010.jpg?width=1920&format=webp 1920w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/a0990be42e7345ff8df4e28db79071d8_20250811170010.jpg?width=2048&format=webp 2048w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/a0990be42e7345ff8df4e28db79071d8_20250811170010.jpg?width=3840&format=webp 3840w
-              "
-              sizes="(min-width: 541px) 50vw, 100vw"
+              decoding="async"
+              src="https://img.29cm.co.kr/next-contents/2025/08/11/a0990be42e7345ff8df4e28db79071d8_20250811170010.jpg?width=720&format=webp"
             />
           </a>
-          <a class="tile" href="/">
+          <a class="tile">
             <img
               alt="DHYANI"
               loading="lazy"
-              src="https://img.29cm.co.kr/next-contents/2025/08/11/f936af2e17344cc6842a25ff9179e10d_20250811165948.jpg?width=3840&format=webp"
-              srcset="
-                https://img.29cm.co.kr/next-contents/2025/08/11/f936af2e17344cc6842a25ff9179e10d_20250811165948.jpg?width=375&format=webp   375w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/f936af2e17344cc6842a25ff9179e10d_20250811165948.jpg?width=408&format=webp   408w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/f936af2e17344cc6842a25ff9179e10d_20250811165948.jpg?width=564&format=webp   564w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/f936af2e17344cc6842a25ff9179e10d_20250811165948.jpg?width=720&format=webp   720w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/f936af2e17344cc6842a25ff9179e10d_20250811165948.jpg?width=828&format=webp   828w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/f936af2e17344cc6842a25ff9179e10d_20250811165948.jpg?width=1080&format=webp 1080w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/f936af2e17344cc6842a25ff9179e10d_20250811165948.jpg?width=1440&format=webp 1440w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/f936af2e17344cc6842a25ff9179e10d_20250811165948.jpg?width=1920&format=webp 1920w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/f936af2e17344cc6842a25ff9179e10d_20250811165948.jpg?width=2048&format=webp 2048w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/f936af2e17344cc6842a25ff9179e10d_20250811165948.jpg?width=3840&format=webp 3840w
-              "
-              sizes="(min-width: 541px) 50vw, 100vw"
+              decoding="async"
+              src="https://img.29cm.co.kr/next-contents/2025/08/11/f936af2e17344cc6842a25ff9179e10d_20250811165948.jpg?width=720&format=webp"
             />
           </a>
-          <a class="tile" href="/">
+          <a class="tile">
             <img
               alt="SATUR"
               loading="lazy"
-              src="https://img.29cm.co.kr/next-contents/2025/08/11/66e2845aca9e4890a2279e978983525d_20250811165929.jpg?width=3840&format=webp"
-              srcset="
-                https://img.29cm.co.kr/next-contents/2025/08/11/66e2845aca9e4890a2279e978983525d_20250811165929.jpg?width=375&format=webp   375w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/66e2845aca9e4890a2279e978983525d_20250811165929.jpg?width=408&format=webp   408w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/66e2845aca9e4890a2279e978983525d_20250811165929.jpg?width=564&format=webp   564w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/66e2845aca9e4890a2279e978983525d_20250811165929.jpg?width=720&format=webp   720w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/66e2845aca9e4890a2279e978983525d_20250811165929.jpg?width=828&format=webp   828w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/66e2845aca9e4890a2279e978983525d_20250811165929.jpg?width=1080&format=webp 1080w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/66e2845aca9e4890a2279e978983525d_20250811165929.jpg?width=1440&format=webp 1440w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/66e2845aca9e4890a2279e978983525d_20250811165929.jpg?width=1920&format=webp 1920w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/66e2845aca9e4890a2279e978983525d_20250811165929.jpg?width=2048&format=webp 2048w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/66e2845aca9e4890a2279e978983525d_20250811165929.jpg?width=3840&format=webp 3840w
-              "
-              sizes="(min-width: 541px) 50vw, 100vw"
+              decoding="async"
+              src="https://img.29cm.co.kr/next-contents/2025/08/11/66e2845aca9e4890a2279e978983525d_20250811165929.jpg?width=720&format=webp"
             />
           </a>
-          <a class="tile" href="/">
+          <a class="tile">
             <img
               alt="URAGO"
               loading="lazy"
-              src="https://img.29cm.co.kr/next-contents/2025/08/11/08adba6497cc45478b0ceac0bb3b4dec_20250811165901.jpg?width=3840&format=webp"
-              srcset="
-                https://img.29cm.co.kr/next-contents/2025/08/11/08adba6497cc45478b0ceac0bb3b4dec_20250811165901.jpg?width=375&format=webp   375w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/08adba6497cc45478b0ceac0bb3b4dec_20250811165901.jpg?width=408&format=webp   408w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/08adba6497cc45478b0ceac0bb3b4dec_20250811165901.jpg?width=564&format=webp   564w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/08adba6497cc45478b0ceac0bb3b4dec_20250811165901.jpg?width=720&format=webp   720w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/08adba6497cc45478b0ceac0bb3b4dec_20250811165901.jpg?width=828&format=webp   828w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/08adba6497cc45478b0ceac0bb3b4dec_20250811165901.jpg?width=1080&format=webp 1080w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/08adba6497cc45478b0ceac0bb3b4dec_20250811165901.jpg?width=1440&format=webp 1440w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/08adba6497cc45478b0ceac0bb3b4dec_20250811165901.jpg?width=1920&format=webp 1920w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/08adba6497cc45478b0ceac0bb3b4dec_20250811165901.jpg?width=2048&format=webp 2048w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/08adba6497cc45478b0ceac0bb3b4dec_20250811165901.jpg?width=3840&format=webp 3840w
-              "
-              sizes="(min-width: 541px) 50vw, 100vw"
+              decoding="async"
+              src="https://img.29cm.co.kr/next-contents/2025/08/11/08adba6497cc45478b0ceac0bb3b4dec_20250811165901.jpg?width=720&format=webp"
             />
           </a>
-          <a class="tile" href="/">
+          <a class="tile">
             <img
               alt="GLOWNY"
               loading="lazy"
-              src="https://img.29cm.co.kr/next-contents/2025/08/11/854f79339afb4bf79133a9850fea5d5e_20250811165841.jpg?width=3840&format=webp"
-              srcset="
-                https://img.29cm.co.kr/next-contents/2025/08/11/854f79339afb4bf79133a9850fea5d5e_20250811165841.jpg?width=375&format=webp   375w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/854f79339afb4bf79133a9850fea5d5e_20250811165841.jpg?width=408&format=webp   408w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/854f79339afb4bf79133a9850fea5d5e_20250811165841.jpg?width=564&format=webp   564w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/854f79339afb4bf79133a9850fea5d5e_20250811165841.jpg?width=720&format=webp   720w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/854f79339afb4bf79133a9850fea5d5e_20250811165841.jpg?width=828&format=webp   828w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/854f79339afb4bf79133a9850fea5d5e_20250811165841.jpg?width=1080&format=webp 1080w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/854f79339afb4bf79133a9850fea5d5e_20250811165841.jpg?width=1440&format=webp 1440w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/854f79339afb4bf79133a9850fea5d5e_20250811165841.jpg?width=1920&format=webp 1920w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/854f79339afb4bf79133a9850fea5d5e_20250811165841.jpg?width=2048&format=webp 2048w,
-                https://img.29cm.co.kr/next-contents/2025/08/11/854f79339afb4bf79133a9850fea5d5e_20250811165841.jpg?width=3840&format=webp 3840w
-              "
-              sizes="(min-width: 541px) 50vw, 100vw"
+              decoding="async"
+              src="https://img.29cm.co.kr/next-contents/2025/08/11/854f79339afb4bf79133a9850fea5d5e_20250811165841.jpg?width=720&format=webp"
             />
           </a>
         </div>
 
         <!-- 오른쪽 영역 -->
-        <div class="home__col home__col--right">
+        <div class="home-col home-col-right">
           <!-- 오른쪽 영역의 왼쪽 영역 -->
           <div class="right-section">
-            <a class="tile2" href="/">
+            <a class="tile2">
               <img
                 alt=""
-                fetchpriority="high"
-                decoding="async"
-                src="https://img.29cm.co.kr/cm/202508/11f0768a0656ee7a964a7dbd90e5e38a.jpg?width=3840&format=webp"
-                srcset="
-                  https://img.29cm.co.kr/cm/202508/11f0768a0656ee7a964a7dbd90e5e38a.jpg?width=375&format=webp   375w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0656ee7a964a7dbd90e5e38a.jpg?width=408&format=webp   408w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0656ee7a964a7dbd90e5e38a.jpg?width=564&format=webp   564w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0656ee7a964a7dbd90e5e38a.jpg?width=720&format=webp   720w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0656ee7a964a7dbd90e5e38a.jpg?width=828&format=webp   828w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0656ee7a964a7dbd90e5e38a.jpg?width=1080&format=webp 1080w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0656ee7a964a7dbd90e5e38a.jpg?width=1440&format=webp 1440w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0656ee7a964a7dbd90e5e38a.jpg?width=1920&format=webp 1920w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0656ee7a964a7dbd90e5e38a.jpg?width=2048&format=webp 2048w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0656ee7a964a7dbd90e5e38a.jpg?width=3840&format=webp 3840w
-                "
-                sizes="(min-width: 541px) 40vw, 100vw"
                 loading="lazy"
+                decoding="async"
+                src="https://img.29cm.co.kr/cm/202508/11f0768a0656ee7a964a7dbd90e5e38a.jpg?width=720&format=webp"
               />
             </a>
+
             <!-- 카드 리스트 -->
             <div class="product-card-list">
-                <!-- 개별 카드 -->
-                <div class="product-card">
-                  <a class="product-main" href="/">
-                    <div class="product-card-img">
-                      <img src="" alt="대표 이미지"/>
-                    </div>
-                    <div class="product-card-title">
-                      <span class="">편안한 휴가를 위해</span>
-                    </div>
-                    <div class="product-card-desc">
-                      <span class="">기다렸던 바캉스에서 편하게 입기 좋은 아이템을 10% 추가 쿠폰으로 제안합니다.</span>
-                    </div>
-                  </a>
-                  <div class="product-card-item-list">
-                    <div class="product-card-item">
-                      <div class="product-card-item-img">
-                        <img src="" alt="이미지 썸네일"/>
-                      </div>
-                      <div class="product-card-item-info">
-                        <div class="product-card-item-brand">
-
-                        </div>
-                        <div class="product-card-item-name">
-
-                        </div>
-                        <div class="product-card-item-price">
-
-                        </div>
-                      </div>
-                      <div class="product-card-item-like">
-                        <div class="product-card-item-like-count">
-
-                        </div>
-                      </div>
-                    </div>
+              <div class="product-card">
+                <a class="product-card-main">
+                  <div class="product-card-img">
+                    <img
+                      alt="여름의 향연"
+                      loading="lazy"
+                      decoding="async"
+                      src="https://img.29cm.co.kr/cm/202508/11f078f4a3fc4e748893cf08c70136aa.jpg?width=7200&amp;format=webp"
+                    />
                   </div>
-                </div>
-
+                  <div class="product-card-text">
+                    <p class="product-card-text-title">여름의 향연</p>
+                    <p class="product-card-text-desc">
+                      예술적 감성을 담은 루에브르의 여름을 최대 60% 혜택으로
+                      만나보세요.
+                    </p>
+                  </div>
+                </a>
+                <ul class="product-card-item-list">
+                  <li class="product-card-item">
+                    <div class="product-card-item-img">
+                      <img
+                        alt="Halter Layerd Eyelet Blouse SW4MB738-03"
+                        loading="lazy"
+                        width="54"
+                        height="54"
+                        decoding="async"
+                        data-nimg="1"
+                        src="https://img.29cm.co.kr/item/202504/11f01902a26ae9fcb1315fddc8e9d9f9.jpg?width=144&amp;format=webp"
+                      />
+                    </div>
+                    <div class="product-card-item-info">
+                      <div class="product-card-item-center">
+                        <p class="product-card-item-brand">루에브르</p>
+                        <p class="product-card-item-name">
+                          Halter Layerd Eyelet Blouse SW4MB738-03
+                        </p>
+                        <div class="product-card-item-price">
+                          <p class="product-card-item-price-percent">60%</p>
+                          <p>43,600</p>
+                        </div>
+                      </div>
+                      <div class="product-card-item-right">
+                        <button class="product-card-item-like">
+                          <img src="./icons/main-like.svg" alt="" />
+                          <p class="product-card-item-like-count">1K</p>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="product-card-item">
+                    <div class="product-card-item-img">
+                      <img
+                        alt="[BLACK 단독] Sleeveless Wrap Jersey Blouse SW5ME297_3color"
+                        loading="lazy"
+                        width="54"
+                        height="54"
+                        decoding="async"
+                        data-nimg="1"
+                        src="https://img.29cm.co.kr/item/202507/11f0563d9b9bfbb1890987a34991e19b.jpg?width=144&amp;format=webp"
+                      />
+                    </div>
+                    <div class="product-card-item-info">
+                      <div class="product-card-item-center">
+                        <p class="product-card-item-brand">루에브르</p>
+                        <p class="product-card-item-name">
+                          [BLACK 단독] Sleeveless Wrap Jersey Blouse
+                          SW5ME297_3color
+                        </p>
+                        <div class="product-card-item-price">
+                          <p class="product-card-item-price-percent">21%</p>
+                          <p>54,650</p>
+                        </div>
+                      </div>
+                      <div class="product-card-item-right">
+                        <button class="product-card-item-like">
+                          <img src="./icons/main-like.svg" alt="" />
+                          <p class="product-card-item-like-count">17K</p>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
               </div>
+              <div class="product-card">
+                <a class="product-card-main">
+                  <div class="product-card-img">
+                    <img
+                      alt="오랫동안 함께 할"
+                      loading="lazy"
+                      decoding="async"
+                      src="https://img.29cm.co.kr/cms/202508/11f073385cd9ddb6964a397af6e9dc4f.image/jpeg?width=720&amp;format=webp"
+                    />
+                  </div>
+                  <div class="product-card-text">
+                    <p class="product-card-text-title">오랫동안 함께 할</p>
+                    <p class="product-card-text-desc">
+                      미리 만나보는 블랭크공삼의 새 계절과 단독 클리어런스
+                      혜택을 함께 준비했어요.
+                    </p>
+                  </div>
+                </a>
+                <ul class="product-card-item-list">
+                  <li class="product-card-item">
+                    <div class="product-card-item-img">
+                      <img
+                        alt="tencel eyelet shirt blouse (cream)"
+                        loading="lazy"
+                        width="54"
+                        height="54"
+                        decoding="async"
+                        data-nimg="1"
+                        src="https://img.29cm.co.kr/item/202408/11ef6757fda921228f479b792a17ef1f.jpg?width=144&amp;format=webp"
+                      />
+                    </div>
+                    <div class="product-card-item-info">
+                      <div class="product-card-item-center">
+                        <p class="product-card-item-brand">블랭크공삼</p>
+                        <p class="product-card-item-name">
+                          tencel eyelet shirt blouse (cream)
+                        </p>
+                        <div class="product-card-item-price">
+                          <p class="product-card-item-price-percent">49%</p>
+                          <p>83,130</p>
+                        </div>
+                      </div>
+                      <div class="product-card-item-right">
+                        <button class="product-card-item-like">
+                          <img src="./icons/main-like.svg" alt="" />
+                          <p class="product-card-item-like-count">38</p>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="product-card-item">
+                    <div class="product-card-item-img">
+                      <img
+                        alt="raw turtle t-shirt (5colors)"
+                        loading="lazy"
+                        width="54"
+                        height="54"
+                        decoding="async"
+                        data-nimg="1"
+                        src="https://img.29cm.co.kr/item/202308/11ee48009d70f6a3a3d86162d788ed8f.jpg?width=144&amp;format=webp"
+                      />
+                    </div>
+                    <div class="product-card-item-info">
+                      <div class="product-card-item-center">
+                        <p class="product-card-item-brand">블랭크공삼</p>
+                        <p class="product-card-item-name">
+                          raw turtle t-shirt (5colors)
+                        </p>
+                        <div class="product-card-item-price">
+                          <p class="product-card-item-price-percent">49%</p>
+                          <p>24,990</p>
+                        </div>
+                      </div>
+                      <div class="product-card-item-right">
+                        <button class="product-card-item-like">
+                          <img src="./icons/main-like.svg" alt="" />
+                          <p class="product-card-item-like-count">27</p>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="product-card">
+                <a class="product-card-main">
+                  <div class="product-card-img">
+                    <img
+                      alt="눈부신 햇살을 닮은"
+                      loading="lazy"
+                      decoding="async"
+                      src="https://img.29cm.co.kr/cm/202508/11f073f6c946bb028893b72800b7188a.jpg?width=7200&amp;format=webp"
+                    />
+                  </div>
+                  <div class="product-card-text">
+                    <p class="product-card-text-title">눈부신 햇살을 닮은</p>
+                    <p class="product-card-text-desc">
+                      아유서울, 텍토, 녹섭의 여름 베스트 룩을 단독혜택으로
+                      만나보세요.
+                    </p>
+                  </div>
+                </a>
+                <ul class="product-card-item-list">
+                  <li class="product-card-item">
+                    <div class="product-card-item-img">
+                      <img
+                        alt="[딘디 PICK] LACE PATCHWORK MAXI SKIRT, WHITE"
+                        loading="lazy"
+                        width="54"
+                        height="54"
+                        decoding="async"
+                        data-nimg="1"
+                        src="https://img.29cm.co.kr/item/202507/11f06ce0a0d542588893c96d67ac579f.jpg?width=144&amp;format=webp"
+                      />
+                    </div>
+                    <div class="product-card-item-info">
+                      <div class="product-card-item-center">
+                        <p class="product-card-item-brand">아유서울</p>
+                        <p class="product-card-item-name">
+                          [딘디 PICK] LACE PATCHWORK MAXI SKIRT, WHITE
+                        </p>
+                        <div class="product-card-item-price">
+                          <p class="product-card-item-price-percent">10%</p>
+                          <p>163,800</p>
+                        </div>
+                      </div>
+                      <div class="product-card-item-right">
+                        <button class="product-card-item-like">
+                          <img src="./icons/main-like.svg" alt="" />
+                          <p class="product-card-item-like-count">752</p>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="product-card-item">
+                    <div class="product-card-item-img">
+                      <img
+                        alt="[묵화 착용] (3차 리오더) Linen boat-neck jacket_cream"
+                        loading="lazy"
+                        width="54"
+                        height="54"
+                        decoding="async"
+                        data-nimg="1"
+                        src="https://img.29cm.co.kr/item/202507/11f05bbc1b0d21edafc08f016cceff25.jpg?width=144&amp;format=webp"
+                      />
+                    </div>
+                    <div class="product-card-item-info">
+                      <div class="product-card-item-center">
+                        <p class="product-card-item-brand">녹섭</p>
+                        <p class="product-card-item-name">
+                          [묵화 착용] (3차 리오더) Linen boat-neck jacket_cream
+                        </p>
+                        <div class="product-card-item-price">
+                          <p class="product-card-item-price-percent">36%</p>
+                          <p>164,830</p>
+                        </div>
+                      </div>
+                      <div class="product-card-item-right">
+                        <button class="product-card-item-like">
+                          <img src="./icons/main-like.svg" alt="" />
+                          <p class="product-card-item-like-count">3K</p>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="product-card">
+                <a class="product-card-main">
+                  <div class="product-card-img">
+                    <img
+                      alt="브랜드의 모든 소식, 쇼케이스"
+                      loading="lazy"
+                      decoding="async"
+                      src="https://img.29cm.co.kr/cm/202508/11f0710b876d207e964a9fa1f237446f.jpg?width=720&amp;format=webp"
+                    />
+                  </div>
+                  <div class="product-card-text">
+                    <p class="product-card-text-title">
+                      브랜드의 모든 소식, 쇼케이스
+                    </p>
+                    <p class="product-card-text-desc">
+                      신상품 컬렉션 소개와 할인 혜택, 그리고 증정 이벤트까지. 이
+                      모든 소식을 29CM 쇼케이스에서 가장 먼저 만나보세요.
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
           <!-- 오른쪽 영역의 오른쪽 영역 -->
           <div class="left-section">
-            <a class="tile2" href="/">
+            <a class="tile2">
               <img
                 alt=""
-                fetchpriority="high"
-                decoding="async"
-                src="https://img.29cm.co.kr/cm/202508/11f0768a0a73a2ae964a312a77a327a8.jpg?width=3840&format=webp"
-                srcset="
-                  https://img.29cm.co.kr/cm/202508/11f0768a0a73a2ae964a312a77a327a8.jpg?width=375&format=webp   375w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0a73a2ae964a312a77a327a8.jpg?width=408&format=webp   408w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0a73a2ae964a312a77a327a8.jpg?width=564&format=webp   564w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0a73a2ae964a312a77a327a8.jpg?width=720&format=webp   720w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0a73a2ae964a312a77a327a8.jpg?width=828&format=webp   828w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0a73a2ae964a312a77a327a8.jpg?width=1080&format=webp 1080w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0a73a2ae964a312a77a327a8.jpg?width=1440&format=webp 1440w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0a73a2ae964a312a77a327a8.jpg?width=1920&format=webp 1920w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0a73a2ae964a312a77a327a8.jpg?width=2048&format=webp 2048w,
-                  https://img.29cm.co.kr/cm/202508/11f0768a0a73a2ae964a312a77a327a8.jpg?width=3840&format=webp 3840w
-                "
-                sizes="(min-width: 541px) 40vw, 100vw"
                 loading="lazy"
+                decoding="async"
+                src="https://img.29cm.co.kr/cm/202508/11f0768a0a73a2ae964a312a77a327a8.jpg?width=720&format=webp"
               />
             </a>
-            <div class="card-list">
-              <!-- 카드들 -->
-                <div class="card">카드 2-1</div>
-                <div class="card">카드 2-2</div>
-                <div class="card">카드 2-3</div>
-                <div class="card">카드 2-4</div>
-                <div class="card">카드 2-5</div>
-                <div class="card">카드 2-6</div>
+
+            <!-- 카드 리스트 -->
+            <div class="product-card-list">
+              <div class="product-card">
+                <a class="product-card-main">
+                  <div class="product-card-img">
+                    <img
+                      alt="깊어지는 여름"
+                      loading="lazy"
+                      decoding="async"
+                      src="https://img.29cm.co.kr/cm/202508/11f070d45409048088934913ac86158a.jpg?width=720&amp;format=webp"
+                    />
+                  </div>
+                  <div class="product-card-text">
+                    <p class="product-card-text-title">깊어지는 여름</p>
+                    <p class="product-card-text-desc">
+                      클래식 실루엣과 뉴트럴 색감의 로우의 시그니처 슬리브리스를
+                      10+5% 혜택으로 만나세요.
+                    </p>
+                  </div>
+                </a>
+                <ul class="product-card-item-list">
+                  <li class="product-card-item">
+                    <div class="product-card-item-img">
+                      <img
+                        alt="[50th] Leau sleeveless_ivory"
+                        loading="lazy"
+                        width="54"
+                        height="54"
+                        decoding="async"
+                        data-nimg="1"
+                        src="https://img.29cm.co.kr/item/202407/11ef4eda23d36ca589fbc9963de382cc.jpg?width=144&amp;format=webp"
+                      />
+                    </div>
+                    <div class="product-card-item-info">
+                      <div class="product-card-item-center">
+                        <p class="product-card-item-brand">로우</p>
+                        <p class="product-card-item-name">
+                          [50th] Leau sleeveless_ivory
+                        </p>
+                        <div class="product-card-item-price">
+                          <p class="product-card-item-price-percent">10%</p>
+                          <p>31,500</p>
+                        </div>
+                      </div>
+                      <div class="product-card-item-right">
+                        <button class="product-card-item-like">
+                          <img src="./icons/main-like.svg" alt="" />
+                          <p class="product-card-item-like-count">7K</p>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="product-card-item">
+                    <div class="product-card-item-img">
+                      <img
+                        alt="Leau sleeveless_blue"
+                        loading="lazy"
+                        width="54"
+                        height="54"
+                        decoding="async"
+                        data-nimg="1"
+                        src="https://img.29cm.co.kr/item/202507/11f06cfb1bad52c88893c15b2ca7b560.jpg?width=144&amp;format=webp"
+                      />
+                    </div>
+                    <div class="product-card-item-info">
+                      <div class="product-card-item-center">
+                        <p class="product-card-item-brand">로우</p>
+                        <p class="product-card-item-name">
+                          Leau sleeveless_blue
+                        </p>
+                        <div class="product-card-item-price">
+                          <p class="product-card-item-price-percent">10%</p>
+                          <p>31,500</p>
+                        </div>
+                      </div>
+                      <div class="product-card-item-right">
+                        <button class="product-card-item-like">
+                          <img src="./icons/main-like.svg" alt="" />
+                          <p class="product-card-item-like-count">115</p>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="product-card">
+                <a class="product-card-main">
+                  <div class="product-card-img">
+                    <img
+                      alt="나이티와 피부피부의 만남"
+                      loading="lazy"
+                      decoding="async"
+                      src="https://img.29cm.co.kr/cm/202508/11f073f92f7ae734964a3f2f53104298.jpg?width=720&amp;format=webp"
+                    />
+                  </div>
+                  <div class="product-card-text">
+                    <p class="product-card-text-title">
+                      나이티와 피부피부의 만남
+                    </p>
+                    <p class="product-card-text-desc">
+                      아로마 테라피를 통해 마음을 차분하게 정돈하고 편안한 밤을
+                      맞이해요.
+                    </p>
+                  </div>
+                </a>
+                <ul class="product-card-item-list">
+                  <li class="product-card-item">
+                    <div class="product-card-item-img">
+                      <img
+                        alt="아로마 리추얼 키트 (아로마오일 + 향갈피)"
+                        loading="lazy"
+                        width="54"
+                        height="54"
+                        decoding="async"
+                        data-nimg="1"
+                        src="https://img.29cm.co.kr/item/202508/11f06ed5f1a24c028893bd04f9bfe333.JPG?width=144&amp;format=webp"
+                      />
+                    </div>
+                    <div class="product-card-item-info">
+                      <div class="product-card-item-center">
+                        <p class="product-card-item-brand">피부피부</p>
+                        <p class="product-card-item-name">
+                          아로마 리추얼 키트 (아로마오일 + 향갈피)
+                        </p>
+                        <div class="product-card-item-price">
+                          <p class="product-card-item-price-percent">20%</p>
+                          <p>26,400</p>
+                        </div>
+                      </div>
+                      <div class="product-card-item-right">
+                        <button class="product-card-item-like">
+                          <img src="./icons/main-like.svg" alt="" />
+                          <p class="product-card-item-like-count">190</p>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="product-card">
+                <a class="product-card-main">
+                  <div class="product-card-img">
+                    <img
+                      alt="흐르는 여름"
+                      loading="lazy"
+                      decoding="async"
+                      src="https://img.29cm.co.kr/cm/202508/11f078f430c7d01c8893d76b3dd97808.jpg?width=720&amp;format=webp"
+                    />
+                  </div>
+                  <div class="product-card-text">
+                    <p class="product-card-text-title">흐르는 여름</p>
+                    <p class="product-card-text-desc">
+                      시원하고 가벼운 웨이베러시스의 여름 파자마로 가장 편안한
+                      순간을 만들어 보세요.
+                    </p>
+                  </div>
+                </a>
+                <ul class="product-card-item-list">
+                  <li class="product-card-item">
+                    <div class="product-card-item-img">
+                      <img
+                        alt="[29CM 단독] LIFE PAJAMAS (BLUE)"
+                        loading="lazy"
+                        width="54"
+                        height="54"
+                        decoding="async"
+                        data-nimg="1"
+                        src="https://img.29cm.co.kr/item/202507/11f06a230b7853968893171b75ee18f2.jpg?width=144&amp;format=webp"
+                      />
+                    </div>
+                    <div class="product-card-item-info">
+                      <div class="product-card-item-center">
+                        <p class="product-card-item-brand">웨이베러시스</p>
+                        <p class="product-card-item-name">
+                          [29CM 단독] LIFE PAJAMAS (BLUE)
+                        </p>
+                        <div class="product-card-item-price">
+                          <p class="product-card-item-price-percent">10%</p>
+                          <p>115,200</p>
+                        </div>
+                      </div>
+                      <div class="product-card-item-right">
+                        <button class="product-card-item-like">
+                          <img src="./icons/main-like.svg" alt="" />
+                          <p class="product-card-item-like-count">52</p>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="product-card-item">
+                    <div class="product-card-item-img">
+                      <img
+                        alt="[29CM 단독] LIFE PAJAMAS (BROWN)"
+                        loading="lazy"
+                        width="54"
+                        height="54"
+                        decoding="async"
+                        data-nimg="1"
+                        src="https://img.29cm.co.kr/item/202507/11f06a1cd2646a2a889339f60b91ed6a.jpg?width=144&amp;format=webp"
+                      />
+                    </div>
+                    <div class="product-card-item-info">
+                      <div class="product-card-item-center">
+                        <p class="product-card-item-brand">웨이베러시스</p>
+                        <p class="product-card-item-name">
+                          [29CM 단독] LIFE PAJAMAS (BROWN)
+                        </p>
+                        <div class="product-card-item-price">
+                          <p class="product-card-item-price-percent">10%</p>
+                          <p>115,200</p>
+                        </div>
+                      </div>
+                      <div class="product-card-item-right">
+                        <button class="product-card-item-like">
+                          <img src="./icons/main-like.svg" alt="" />
+                          <p class="product-card-item-like-count">65</p>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="product-card">
+                <a class="product-card-main">
+                  <div class="product-card-img">
+                    <img
+                      alt="오늘의 스페셜오더"
+                      loading="lazy"
+                      decoding="async"
+                      src="https://img.29cm.co.kr/cm/202508/11f0710b83dddf228893f106eff5b2c6.jpg?width=720&amp;format=webp"
+                    />
+                  </div>
+                  <div class="product-card-text">
+                    <p class="product-card-text-title">오늘의 스페셜오더</p>
+                    <p class="product-card-text-desc">
+                      오직 29CM에서만 만나볼 수 있는 제품 혹은 구성을 합리적인
+                      가격으로 소개합니다. 잘 만든 제품을 엄선하여 당신의
+                      특별하고 현명한 소비를 도와주는 스페셜오더를 경험해보세요.
+                    </p>
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </main>
 
+      <div class="product-hidden">
+        <hr class="product-hidden-divider" />
+        <button class="product-hidden-more">더보기</button>
+      </div>
+
       <!-- ====== 푸터 ====== -->
       <footer class="footer">
-        
+        <!-- ─── 데스크톱(≥1025px) 버전 ─── -->
+        <div class="footer-desktop" aria-hidden="true">
+          <div class="footer-desktop-top">
+            <div class="cs">
+              <p class="cs-title">고객센터 1660-2929</ㅔ>
+              <p class="cs-time">
+                운영시간 : 평일 09:00 ~ 18:00 (점심시간 12:00 ~ 13:00 제외)
+              </p>
+              <div class="cs-actions">
+                <a
+                  class="cs-btn"
+                  href="https://order.29cm.co.kr/my-order/cscenter/faq"
+                  target="_blank"
+                  >FAQ
+                  <img src="./icons/footer-1.svg" alt="" />
+                </a>
+                <a
+                  class="cs-btn"
+                  href="https://order.29cm.co.kr/my-order/cscenter/qna"
+                  target="_blank"
+                  >1:1 문의
+                  <img src="./icons/footer-1.svg" alt="" />
+                </a>
+              </div>
+            </div>
+            <div class="sns">
+              <a
+                class="sns-btn"
+                aria-label="instagram"
+                target="_blank"
+                href="https://instagram.com/29cm.official"
+              >
+                  <img src="./icons/footer-insta.svg" alt="" />
+              </a>
+              <a
+                class="sns-btn"
+                aria-label="youtube"
+                target="_blank"
+                href="https://www.youtube.com/@29CM"
+              >
+                <img src="./icons/footer-ytb.svg" alt="" />
+              </a>
+              <a
+                class="sns-btn"
+                aria-label="apple"
+                target="_blank"
+                href="https://apps.apple.com/us/app/29cm/id789634744"
+              >
+                <img src="./icons/footer-apple.svg" alt="" />
+              </a>
+              <a
+                class="sns-btn"
+                aria-label="google play"
+                target="_blank"
+                href="https://play.google.com/store/apps/details?id=com.the29cm.app29cm"
+              >
+                <img src="./icons/footer-play.svg" alt="" />
+              </a>
+            </div>
+          </div>
+          <hr class="footer-line" />
+          <div class="footer-desktop-grid">
+            <section class="col notice">
+              <h4 class="col-title">NOTICE</h4>
+              <ul class="notice-list">
+                <li>
+                  [공지] 장바구니 쿠폰 정책 개편 안내
+                  <span class="badge-n">N</span>
+                </li>
+                <li>
+                  [공지] 개인정보처리방침 개정 예정 안내(시행일: 2025년 8월19일)
+                  <span class="badge-n">N</span>
+                </li>
+                <li>
+                  [공지] 리뷰 적립금 지급 기준 정책 개편 안내
+                  <span class="badge-n">N</span>
+                </li>
+                <li>[공지] 택배 없는 날 및 공휴일로 인한 배송 지연 안내</li>
+                <li>기상악화로 인한 배송 지연 양해 안내</li>
+              </ul>
+            </section>
+            <section class="col">
+              <h4 class="col-title">ABOUT US</h4>
+              <ul class="col-links">
+                <li>
+                  <a target="_blank" href="https://www.29cm.co.kr/home/about"
+                    >29CM 소개</a
+                  >
+                </li>
+                <li>
+                  <a target="_blank" href="https://www.29cmcareers.co.kr"
+                    >인재채용</a
+                  >
+                </li>
+                <li>
+                  <a target="_blank" href="https://www.29cm.co.kr"
+                    >상시 할인 혜택</a
+                  >
+                </li>
+              </ul>
+            </section>
+            <section class="col">
+              <h4 class="col-title">MY ORDER</h4>
+              <ul class="col-links">
+                <li><a target="_blank" href="#">주문배송</a></li>
+                <li><a target="_blank" href="#">취소/교환/반품 내역</a></li>
+                <li><a target="_blank" href="#">상품리뷰 내역</a></li>
+                <li><a target="_blank" href="#">증빙서류발급</a></li>
+              </ul>
+            </section>
+            <section class="col">
+              <h4 class="col-title">MY ACCOUNT</h4>
+              <ul class="col-links">
+                <li><a target="_blank" href="#">회원정보수정</a></li>
+                <li><a target="_blank" href="#">나의 멤버십 등급</a></li>
+                <li><a target="_blank" href="#">마일리지현황</a></li>
+                <li><a target="_blank" href="#">쿠폰</a></li>
+              </ul>
+            </section>
+            <section class="col">
+              <h4 class="col-title">HELP</h4>
+              <ul class="col-links">
+                <li>
+                  <a
+                    target="_blank"
+                    href="https://order.29cm.co.kr/my-order/cscenter/qna"
+                    >1:1 문의</a
+                  >
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    href="https://customer.29cm.co.kr/contact-us"
+                    >입점 및 제휴 문의</a
+                  >
+                </li>
+                <li><a target="_blank" href="#">상품 Q&A내역</a></li>
+                <li>
+                  <a
+                    target="_blank"
+                    href="https://order.29cm.co.kr/my-order/cscenter/faq"
+                    >FAQ</a
+                  >
+                </li>
+                <li><a target="_blank" href="#">고객의 소리</a></li>
+              </ul>
+            </section>
+          </div>
+          <hr class="footer-line" />
+          <div class="footer-desktop-bottom">
+            <nav class="bottom-links">
+              <a target="_blank" href="https://www.29cm.co.kr/home/private">개인정보 처리방침</a>
+              <span class="sep">|</span>
+              <a target="_blank" href="https://www.29cm.co.kr/home/agreement">이용약관</a>
+              <span class="sep">|</span>
+              <a
+                target="_blank"
+                href="https://www.29cm.co.kr/home/dispute-resolution-standard">
+                분쟁해결기준
+              </a>
+              <span class="sep">|</span>
+              <a target="_blank" href="https://trust.musinsa.com">안전거래센터</a>
+            </nav>
+            <p class="biz-line">
+              상호명: (주)무신사  사업장소재지: 서울특별시 성동구 아차산로 13길 11, 1층 (성수동2가, 무신사캠퍼스 N1)  팩스: 070-8622-7737   
+              사업자등록번호: 211-88-79575  통신판매업신고: 2022-서울성동-01952  
+              <a
+                class="biz-check"
+                target="_blank"
+                href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=2118879575"
+                >사업자정보확인
+              </a>
+            </p>
+            <p class="biz-line"></p>
+              전화번호: 1660-2929  이메일: customer@29cm.co.kr  대표: 조만호, 박준모  호스팅서비스: (주)무신사
+            </p>  
+            <p class="guarantee">
+              일부 상품의 경우 29CM는 통신판매의 당사자가 아닌
+              통신판매중개자로서 상품, 상품정보, 거래에 대한 책임이 제한될 수
+              있으므로, 각 상품 페이지에서 구체적인 내용을 확인하시기 바랍니다.
+            </p>
+            <p class="guarantee">
+              당사는 고객님이 현금 결제한 금액에 대해 우리은행과 채무지급보증
+              계약을 체결하여 안전거래를 보장하고 있습니다.
+              <a
+                target="_blank"
+                href="https://image.msscdn.net/static/common/payment_guarantee.html"
+                >서비스 가입 사실 확인
+              </a>
+            </p>
+          </div>
+        </div>
+        <!-- ─── 모바일(≤1024px) 버전 ─── -->
+        <div class="footer-mobile" aria-hidden="true">
+          <details class="fm-details">
+            <summary class="fm-summary">
+              (주)무신사 사업자 정보
+              <svg class="fm-caret" viewBox="0 0 24 24" width="20" height="20">
+                <path
+                  fill="currentColor"
+                  d="m12 17.414 8.707-8.707-1.414-1.414L12 14.586 4.707 7.293 3.293 8.707z"
+                />
+              </svg>
+            </summary>
+            <div class="fm-body">
+              <p>
+                일부 상품의 경우 29CM는 통신판매의 당사자가 아닌
+                통신판매중개자로서 상품, 상품정보, 거래에 대한 책임이 제한될 수
+                있으므로, 각 상품 페이지에서 구체적인 내용을 확인하시기
+                바랍니다.
+              </p>
+              <p>
+                당사는 고객님이 현금 결제한 금액에 대해 우리은행과 채무지급보증
+                계약을 체결하여 안전거래를 보장하고 있습니다.
+                <a
+                  target="_blank"
+                  href="https://image.msscdn.net/static/common/payment_guarantee.html"
+                  >서비스 가입 사실 확인
+                </a>
+              </p>
+            </div>
+          </details>
+          <hr class="fm-line" />
+          <nav class="fm-links">
+            <a target="_blank">오프라인 매장안내</a>
+            <span>|</span>
+            <a target="_blank">29CM 온라인스토어 바로가기</a>
+            <span>|</span>
+            <a target="_blank">사업자정보확인</a>
+            <span>|</span>
+            <a target="_blank">개인정보처리방침</a>
+            <span>|</span>
+            <a target="_blank">이용약관</a>
+            <span>|</span>
+            <a target="_blank">분쟁해결기준</a>
+            <span>|</span>
+            <a target="_blank">FAQ</a>
+            <span>|</span>
+            <a target="_blank">29CM 소개</a>
+            <span>|</span>
+            <a target="_blank">인재채용</a>
+            <span>|</span>
+            <a target="_blank">안전거래센터</a>
+            <span>|</span>
+            <a target="_blank">입점 및 제휴 문의</a>
+          </nav>
+
+          <div class="fm-sns">
+            <a
+                class="sns-btn"
+                aria-label="instagram"
+                target="_blank"
+                href="https://instagram.com/29cm.official"
+              >
+                  <img src="./icons/footer-insta.svg" alt="" />
+              </a>
+              <a
+                class="sns-btn"
+                aria-label="youtube"
+                target="_blank"
+                href="https://www.youtube.com/@29CM"
+              >
+                <img src="./icons/footer-ytb.svg" alt="" />
+              </a>
+              <a
+                class="sns-btn"
+                aria-label="apple"
+                target="_blank"
+                href="https://apps.apple.com/us/app/29cm/id789634744"
+              >
+                <img src="./icons/footer-apple.svg" alt="" />
+              </a>
+            <a
+                class="sns-btn"
+                aria-label="google play"
+                target="_blank"
+                href="https://play.google.com/store/apps/details?id=com.the29cm.app29cm"
+              >
+                <img src="./icons/footer-play.svg" alt="" />
+              </a>
+          </div>
+        </div>
       </footer>
     </div>
     <script src="./js/script2.js"></script>
