@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+.header {
+  background-color: rgb(255, 249, 240);
+  border-bottom: 3px solid rgb(255, 205, 139);
+  padding: 10px 30px;
+  text-align: right;
+}
+
+.header p {
+  font-size: 0.9rem;
+  color: rgb(119, 119, 119);
+}
+
+.header span {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: rgb(21, 21, 21);
+  margin-right: 5px;
+}
+
