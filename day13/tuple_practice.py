@@ -141,7 +141,7 @@ def SalesByBranch():
 
     for row in branch_sorted:
         cur_branch = row[1]
-        qty = row[4]
+        qty = row[3] * row[4]
 
         # if pre_branch == None:
         #     pre_branch = cur_branch
