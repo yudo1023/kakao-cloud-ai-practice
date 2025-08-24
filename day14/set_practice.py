@@ -83,9 +83,11 @@ def recommend_user(user_name):
         print("공통 관심사를 가진 사용자가 없어요.ㅜㅜ")
     
     ranked = sorted([(user, common, len(common)) for user, common in commons], reverse=True)
-    top_user = [name for name, count in ranked if count == max(count for name, count in ranked)]
+    max_count = max(count for _, _, count in ranked)
+    top_user = [name for name, _, count in ranked if count == max_count]
+
     
-    print(f"당신과 가장 관심사가 비슷한 사용자는 : {", ".join(top_user)}입니다.")
+    print(f"당신과 가장 관심사가 비슷한 사용자는 : {', '.join(top_user)}입니다.")
 
 while True:   
     user_name = input("사용자 이름 : ")
