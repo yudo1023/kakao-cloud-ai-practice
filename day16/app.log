@@ -1,0 +1,16 @@
+2025-08-26 19:27:24,653 - fileproc - DEBUG - 텍스트 파일 쓰기 시작
+2025-08-26 19:27:24,653 - fileproc - INFO - hello.txt 텍스트 파일 쓰기 성공
+2025-08-26 19:27:24,653 - fileproc - DEBUG - 텍스트 파일 읽기 시작
+2025-08-26 19:27:24,653 - fileproc - INFO - hello.txt 텍스트 파일 읽기 성공
+2025-08-26 19:27:24,653 - fileproc - DEBUG - 바이너리 파일 쓰기 시작
+2025-08-26 19:27:24,653 - fileproc - INFO - hello.bin 바이너리 파일 쓰기 성공
+2025-08-26 19:27:24,653 - fileproc - DEBUG - 바이너리 파일 읽기 시작
+2025-08-26 19:27:24,653 - fileproc - INFO - hello.bin 바이너리 파일 읽기 성공 (크기: 5 바이트)
+2025-08-26 19:27:24,653 - fileproc - DEBUG - CSV 파일 쓰기 시작
+2025-08-26 19:27:24,653 - fileproc - INFO - people.csv CSV 파일 쓰기 성공 (rows=3)
+2025-08-26 19:27:24,654 - fileproc - DEBUG - CSV 파일 읽기 시작
+2025-08-26 19:27:24,654 - fileproc - INFO - people.csv CSV 파일 읽기 성공 (rows=3)
+2025-08-26 19:27:24,654 - fileproc - DEBUG - JSON 파일 쓰기 시작
+2025-08-26 19:27:24,654 - fileproc - INFO - data.json JSON 파일 쓰기 성공
+2025-08-26 19:27:24,654 - fileproc - DEBUG - JSON 파일 읽기 시작
+2025-08-26 19:27:24,654 - fileproc - INFO - data.json JSON 파일 읽기 성공
