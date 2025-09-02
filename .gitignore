@@ -1,1 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage*
+htmlcov/
+
+# Packaging
+dist/
+build/
+*.egg-info/
+
+# Virtual env
+myenv/
+.venv/
+venv/
+ENV/
+
+# Editors
+.vscode/
+.idea/
+
+# OS
 .DS_Store
