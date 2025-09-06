@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-plt.rc('font', family='AppleGothic')
+plt.rc('font', family='Apple SD Gothic Neo')
 
 # ** 기초 수학 **
 # p.128 수치적 미분
