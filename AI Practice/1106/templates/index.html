@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google OCR 이미지 업로드</title>
+<style>
+/* --- 기존 스타일 유지 --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+.container { max-width: 1200px; margin: 0 auto; }
+.header { text-align: center; color: white; margin-bottom: 40px; }
+.header h1 { font-size: 36px; margin-bottom: 10px; }
+.header p { font-size: 16px; opacity: 0.9; }
+
+.main-content { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+.upload-section h2 { color: #333; margin-bottom: 20px; font-size: 24px; }
+#file-input { display: none; }
+
+#image-preview {
+  border: 3px dashed #667eea;
+  border-radius: 16px;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  background: linear-gradient(145deg, #f8f9ff, #ffffff);
+  transition: 0.3s;
+  overflow: hidden;
+}
+#image-preview img { max-width: 100%; max-height: 100%; display: none; border-radius: 12px; }
+#image-preview.has-image { background: #f0f0f0; border-style: solid; }
+
+.preview-content { text-align: center; color: #667eea; }
+.upload-icon { font-size: 64px; margin-bottom: 16px; opacity: 0.7; }
+
+.file-info {
+  background: #f8f9ff; border-radius: 12px; padding: 15px; margin-bottom: 20px; display: none;
+}
+.file-info.show { display: block; }
+.info-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+.info-label { color: #666; font-weight: 600; }
+
+.btn-submit {
+  width: 100%; padding: 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600;
+  cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.loading { text-align: center; padding: 20px; display: none; }
+.loading.show { display: block; }
+.spinner {
+  border: 4px solid #f3f3f3; border-top: 4px solid #667eea; border-radius: 50%;
+  width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px;
+}
+
+.ocr-result { background: #f8f9ff; border-radius: 12px; padding: 20px; margin-top: 20px; display: none; }
+.ocr-result.show { display: block; }
+.ocr-text {
+  background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #667eea;
+  white-space: pre-wrap; word-wrap: break-word; line-height: 1.6; max-height: 300px; overflow-y: auto;
+}
+
+.thumbnail-box {
+  text-align: center;
+  margin-top: 20px;
+}
+.thumbnail-box img {
+  max-width: 200px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.alert {
+  padding: 15px; border-radius: 8px; margin-bottom: 20px; display: none;
+}
+.alert.show { display: block; }
+.alert-success {
+  background: #d4edda; color: #155724; border: 1px solid #c3e6cb;
+}
+.alert-error {
+  background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;
+}
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>🌟 Google OCR 이미지 인식 🌟</h1>
+    <p>이미지 올리면 OCR 해줍니다용~</p>
+  </div>
+
+  <!-- 이미지 업로드 -->
+  <div class="main-content">
+    <div class="card upload-section">
+      <h2>📤 이미지 업로드</h2>
+      <div id="alert" class="alert"></div>
+      <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" name="file" id="file-input" accept="image/*">
+        <label for="file-input" id="image-preview" class="file-label">
+          <img src="#" alt="Image Preview" id="preview-img">
+          <div class="preview-content">
+            <div class="upload-icon">☁️</div>
+            <div class="preview-text">클릭하여 이미지 선택</div>
+            <div class="preview-subtext">PNG, JPG, GIF (최대 10MB)</div>
+          </div>
+        </label>
+        
+        <div id="file-info" class="file-info">
+          <div class="info-row"><span class="info-label">파일명:</span><span class="info-value" id="file-name"></span></div>
+          <div class="info-row"><span class="info-label">크기:</span><span class="info-value" id="file-size"></span></div>
+          <div class="info-row"><span class="info-label">타입:</span><span class="info-value" id="file-type"></span></div>
+        </div>
+
+        <div id="loading" class="loading">
+          <div class="spinner"></div>
+          <p>Google OCR 분석 중...</p>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submit-btn" disabled>OCR 실행</button>
+      </form>
+    </div>
+
+    <!-- OCR 결과 -->
+    <div class="card">
+      <h2>📝 OCR 결과</h2>
+      <div id="ocr-result" class="ocr-result">
+        <h3>인식된 텍스트</h3>
+        <div id="ocr-text" class="ocr-text"></div>
+      </div>
+
+      <div id="no-result" style="text-align: center; color: #999; padding: 40px;">
+        이미지를 업로드 후 OCR 실행 하면 결과가 나옵니다용
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const fileInput = document.getElementById('file-input');
+const imagePreview = document.getElementById('image-preview');
+const previewImg = document.getElementById('preview-img');
+const previewContent = document.querySelector('.preview-content');
+const fileInfo = document.getElementById('file-info');
+const fileName = document.getElementById('file-name');
+const fileSize = document.getElementById('file-size');
+const fileType = document.getElementById('file-type');
+const submitBtn = document.getElementById('submit-btn');
+const uploadForm = document.getElementById('upload-form');
+const loading = document.getElementById('loading');
+const ocrResult = document.getElementById('ocr-result');
+const ocrText = document.getElementById('ocr-text');
+const noResult = document.getElementById('no-result');
+const alertBox = document.getElementById('alert');
+
+let selectedFile = null;
+
+// 파일 선택
+fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+
+function handleFiles(files) {
+  const file = files[0];
+  if (file && file.type.startsWith('image/')) {
+    selectedFile = file;
+    const reader = new FileReader();
+    reader.onload = e => {
+      previewImg.src = e.target.result;
+      previewContent.style.display = 'none';
+      previewImg.style.display = 'block';
+      imagePreview.classList.add('has-image');
+      submitBtn.disabled = false;
+    };
+    reader.readAsDataURL(file);
+
+    fileName.textContent = file.name;
+    fileSize.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+    fileType.textContent = file.type;
+    fileInfo.classList.add('show');
+  }
+}
+
+// 폼 제출
+uploadForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!selectedFile) return;
+
+  const formData = new FormData();
+  formData.append('file', selectedFile);
+
+  loading.classList.add('show');
+  submitBtn.disabled = true;
+  hideAlert();
+
+  try {
+    const res = await fetch('/upload', { method: 'POST', body: formData });
+    const data = await res.json();
+    loading.classList.remove('show');
+    submitBtn.disabled = false;
+
+    if (data.error) {
+      showAlert('error', data.error);
+      return;
+    }
+
+    showAlert('success', 'Google OCR 인식이 완료!');
+    displayResult(data);
+  } catch (err) {
+    loading.classList.remove('show');
+    showAlert('error', '서버 오류: ' + err.message);
+    submitBtn.disabled = false;
+  }
+});
+
+function displayResult(data) {
+  noResult.style.display = 'none';
+  ocrResult.classList.add('show');
+  ocrText.textContent = data.ocr_result.text || '텍스트를 인식할 수 없습니다.';
+}
+
+function showAlert(type, msg) {
+  alertBox.textContent = msg;
+  alertBox.className = `alert alert-${type} show`;
+}
+function hideAlert() { alertBox.classList.remove('show'); }
+
+</script>
+</body>
+</html>
