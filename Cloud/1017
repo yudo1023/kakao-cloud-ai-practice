@@ -1,0 +1,187 @@
+# 1. Dockerfile for MariaDB
+FROM mariadb:latest
+
+ENV MARIADB_ROOT_PASSWORD=1234 \
+    MARIADB_DATABASE=classdb \
+    MARIADB_USER=scott \
+    MARIADB_PASSWORD=1234
+
+EXPOSE 3306
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["mariadbd"]
+# 2. 도커파일 생성 후 컨테이너 이미지 생성
+mkdir mariadb
+cd mariadb
+vi Dockerfile
+docker build -t mydb:1.0 .
+# 3. 컨테이너 실행
+docker run -d --name my-mariadb -p 3306:3306 mydb:1.0
+# 4. 실행중인 컨테이너 확인
+docker ps
+# 5. 컨테이너 접속(mariadb)
+docker exec my-mariadb mariadb -uroot -p1234 -e "show databases;"
+docker exec my-mariadb mariadb -uscott -p1234 -e "show databases;"
+# 6. ip주소 확인
+docker inspect d
+# 7. application.properties 수정
+cd stswebjpa/src/main/resources/
+vi application.properties에서 localhost -> 위에서 확인한 ip 주소로 수정
+# 8. java 설치 및 프로젝트 빌드, 실행
+cd ~/stswebjpa
+sudo apt install openjdk-21-jdk -y
+chmod u+x mvnw
+./mvnw clean package
+java -jar target/stswebjpa-0.0.1-SNAPSHOT.jar
+# 9. 웹브라우저에서 접속 확인(8080 포트)
+http://15.165.75.69:8080/
+# 10. Dockerfile for Spring Boot
+FROM openjdk:21
+
+ARG VERSION
+
+COPY target/stswebjpa-0.0.1-SNAPSHOT.jar /app/stswebjpa.jar
+
+LABEL maintainer="Kim Myeong Sin<kms@goodee.co.kr>" \
+      title="Goodee LMS App" \
+      version="$VERSION" \
+      description="This image is goodee lms service"
+
+ENV APP_HOME /app
+EXPOSE 8080
+
+WORKDIR $APP_HOME
+ENTRYPOINT ["java"]
+CMD ["-jar", "stswebjpa.jar"]
+# 11. 위 도커파일 생성 후 컨테이너 이미지 생성 후 실행
+cd stswebjpa
+vi Dockerfile
+docker build -t stswebjpa:1.0 .
+docker run -d --name webapp -p 80:8080 stswebjpa:1.0
+# 12. 웹브라우저에서 접속 확인(80 포트)
+http://15.165.75.69:80/
+# 13. Docker Hub에 이미지 업로드
+docker tag stswebjpa:1.0 yujungk1023/kakaocloudai:1.0
+docker push yujungk1023/kakaocloudai:1.0
+
+# docker 볼륨 마운트
+# 1. 볼륨 없이 생성
+docker run -d --name mydb -e MYSQL_ROOT_PASSWORD=1234 mysql:8.0
+docker exec mydb mysql -uroot -p1234 -e "create database testdb;"
+docker exec mydb mysql -uroot -p1234 -e "show databases;"
+# 2. 볼륨으로 생성
+docker volume create mysql-data
+docker run -d --name mydb2 -v mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=1234 mysql:8.0
+docker exec mydb2 mysql -uroot -p1234 -e "create database testdb;"
+docker exec mydb2 mysql -uroot -p1234 -e "show databases;"
+# 3. 볼륨으로 생성 된 컨테이너 삭제 후 재생성해도 데이터 유지 확인
+docker rm -f mydb2
+docker run -d --name mydb2 -v mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=1234 mysql:8.0
+docker exec mydb2 mysql -uroot -p1234 -e "show databases;"
+
+# 바인드 마운트
+docker run -d -v /home/ubuntu/website:/usr/share/nginx/html -p 8080:80 nginx
+echo "nginx web server" | sudo tee index.html
+docker ps
+docker inspect <컨테이너ID>
+curl 서버IP
+
+alias cip="docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
+cip <컨테이너ID>
+
+docker exec web1 apt update;
+docker exec web1 apt install -y iputils-ping
+
+# 사용자 정의 네트워크에서는 컨테이너 이름으로 통신 가능
+docker network create mynetwork
+docker network inspect mynetwork
+docker run -d --network mynetwork --name app1 nginx
+docker run -d --network mynetwork --name app2 nginx
+docker exec app1 apt update; docker exec app1 apt install -y iputils-ping
+docker exec app1 ping app2
+docker exec app1 apt install -y dnsutils
+docker exec app1 nslookup app2
+
+docker network create --driver bridge --subnet=192.168.100.0/24 --gateway=192.168.100.1 custom-network
+
+
+
+---
+*****
+
+문제 1: Named Volume을 이용한 데이터 지속성
+MySQL 컨테이너를 생성할 때 db_data라는 Named Volume을 사용하여 다음을 구현하세요.
+
+요구사항:
+MySQL 이미지를 사용하여 컨테이너 생성 (root password: mysql123)
+db_data Named Volume을 /var/lib/mysql에 마운트
+컨테이너 내부에서 테스트 데이터베이스와 테이블 생성
+컨테이너 삭제 후 새로운 컨테이너 생성 시 데이터가 유지되는지 확인
+
+확인 방법:
+bash# 첫 번째 컨테이너에서 데이터 생성
+docker exec <container-name> mysql -uroot -pmysql123 -e "CREATE DATABASE testdb; USE testdb; CREATE TABLE users(id INT, name VARCHAR(50));"
+
+# 데이터 확인
+docker exec <container-name> mysql -uroot -pmysql123 -e "USE testdb; SHOW TABLES;"
+
+# 컨테이너 삭제 후 같은 볼륨으로 새 컨테이너 생성
+# 데이터가 남아있는지 확인
+
+문제 2: Bind Mount를 이용한 로컬 파일 공유
+로컬 호스트와 컨테이너 간 파일 공유를 구현하세요.
+
+요구사항:
+로컬 호스트에 /data/myfiles 디렉토리 생성
+해당 디렉토리에 index.html 파일 생성 (간단한 HTML 콘텐츠)
+Nginx 컨테이너를 생성하여 이 디렉토리를 /usr/share/nginx/html에 Bind Mount
+브라우저에서 EC2-IP주소:8080으로 접속하여 파일이 서빙되는지 확인
+
+확인 방법:
+bash# 로컬 파일 생성
+mkdir -p /data/myfiles
+echo "<h1>Hello from Docker!</h1>" > /data/myfiles/index.html
+
+# Nginx 컨테이너 생성
+docker run -d --name nginx-server -p 8080:80 -v /data/myfiles:/usr/share/nginx/html nginx:latest
+
+# 브라우저 또는 curl로 확인
+curl http://localhost:8080
+
+문제 3: Custom Bridge Network를 이용한 컨테이너 통신
+커스텀 브리지 네트워크를 만들고, 두 개의 컨테이너가 네트워크를 통해 통신하도록 구현하세요.
+요구사항:
+
+my-bridge 커스텀 브리지 네트워크 생성
+MySQL 컨테이너를 my-bridge 네트워크에 연결 (이름: mysql-server)
+Nginx 컨테이너를 my-bridge 네트워크에 연결 (이름: nginx-server)
+Nginx 컨테이너 내부에서 MySQL 컨테이너와 통신 가능한지 확인 (호스트명으로 접근)
+
+확인 방법:
+bash# 네트워크 생성
+docker network create my-bridge
+
+# MySQL 컨테이너 생성
+docker run -d --name mysql-server --network my-bridge \
+  -e MYSQL_ROOT_PASSWORD=pass123 mysql:latest
+
+# Nginx 컨테이너 생성
+docker run -d --name nginx-server --network my-bridge nginx:latest
+
+# Nginx 컨테이너에서 MySQL로 접근 가능한지 확인
+docker exec nginx-server ping mysql-server
+
+# MySQL이 정상 작동하는지 확인 (mysql-server로 접근)
+docker exec mysql-server mysql -umysql-server -ppass123 -e "SELECT VERSION();"
+
+문제 4: 포트 매핑을 이용한 외부 접근 제어
+여러 개의 웹 서버를 다른 포트로 실행하고 접근을 제어하세요.
+요구사항:
+
+첫 번째 Nginx 컨테이너: 포트 8000으로 호스트에 노출
+두 번째 Nginx 컨테이너: 포트 8001로 호스트에 노출
+세 번째 Nginx 컨테이너: 포트 매핑 없이 내부 네트워크만 사용
+각 컨테이너마다 다른 HTML 콘텐츠 제공 (구분 가능하도록)
+브라우저에서 localhost:8000과 localhost:8001로 접속 시 다른 페이지가 보이는지 확인
+도커실습과제.txt
+4KB
