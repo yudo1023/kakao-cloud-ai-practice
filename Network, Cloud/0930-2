@@ -1,0 +1,115 @@
+- 클라우드 vpc cidr은 /16, 서브네팅은 /24
+- 카카오클라우드 NAT Gateway가 없으므로 NAT 인스턴스를 생성해서 사용해야 함(사이트 설정법 있음)
+
+*aws 설정
+1. vpc 생성
+- testvpc1, 10.0.0.0/16
+2. 서브넷 생성
+- vpc 연결 : testvpc1
+- 퍼블릭서브넷용 : test-public-subnet, 10.0.0.0/24 -> 퍼블릭IP주소 자동할당
+- 프라이빗서브넷용 : test-private-subnet, 10.0.10.0/24
+3. 라우팅테이블 생성
+- vpc 연결 : testvpc1
+- test-public-rt
+- test-private-rt
+4. 인터넷 게이트웨이 추가
+- vpd 연결 : testvpc1
+- test-igw 생성
+5. 라우팅테이블 라우팅 추가(퍼블릭서브넷으로 만들기 위해)
+- test-public-rt에 0.0.0.0/0, 인터넷 게이트웨이, test-igw
+
+*ec2 생성
+1. public 인스턴스 생성
+- pub-svr
+- os : ubuntu 24.04
+- 인스턴스 타입 : t2.micro
+- 키페어 생성
+- 네트워크 설정 : testvpc1, test-public-subnet, 보안그룹 생성(test-pub-sg)
+    - 고급네트워크 설정의 기본IP 10.0.0.100
+- 고급 세부 정보 : 사용자데이터에 docker engine 설치하는 스크립트 추가
+    - https://docs.docker.com/engine/install/ubuntu/
+    - 설치 중간에 y 눌러야 하는 부분이 있어서 스크립트에 포함
+   ```bash
+#!/bin/bash
+set -eux  # 디버깅 로그 출력 및 오류 시 즉시 종료
+
+# 1. 기본 패키지 업데이트 & 필수 패키지 설치
+sudo apt-get update -y
+sudo apt-get install -y ca-certificates curl gnupg lsb-release
+
+# 2. Docker GPG 키 등록
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# 3. Docker 저장소 추가
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo \"${UBUNTU_CODENAME:-$VERSION_CODENAME}\") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# 4. 패키지 인덱스 업데이트
+sudo apt-get update -y
+
+# 5. Docker Engine 및 관련 패키지 설치 (비대화식 모드)
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# 6. Docker 서비스 활성화 및 실행
+sudo systemctl enable docker
+sudo systemctl start docker
+
+# 7. 설치 확인 로그 출력
+sudo docker --version || echo "Docker 설치 확인 실패"
+
+   ``` 
+
+2. private 인스턴스 생성
+- pri-svr
+- os : Amazon Linux 2023
+- 인스턴스 타입 : t2.micro
+- public에서 생성된 키페어 연결
+- 네트워크 설정 : testvpc1, test-private-subnet, 보안그룹 생성(test-pri-sg)
+    - 고급네트워크 설정의 기본IP 10.0.10.200
+- 보안그룹 생성 : test-pri-sg
+
+*터미널에서 테스트
+1. 키페어 파일 권한 변경
+chmod 400 키페어파일
+2. 접속
+ssh -i 키페어파일 ubuntu@public ec2의 퍼브릭 IP
+
+public 서브넷과 private 서브넷 통신 연결
+- private 보안그룹에 인바운드 규칙 추가(모든 icmp-ipv4, 10.0.0.0/16)
+
+vcp내의 퍼블릭 서브넷에 ec2를 두고 그 ec2를 거쳐서 프라이빗 서브넷 안쪽에 접속할때 퍼블릭 서브넷의 ec2를 **Bastion Host(베스천 호스트)**라고 부름.
+이떄 프라이빗 서브넷의 개인키가 퍼블릭 서브넷에 있어야 함.
+scp -i kyj-keypair.pem kyj-keypair.pem ubuntu@54.180.154.181:/home/ubuntu
+
+퍼브릭서브넷에서 프라이빗서브넷으로 접속
+ssh -i kyj-keypair.pem ec2-user@10.0.10.200
+
+프라이빗서브넷에서 외부와 통신하고자 할때 -> NAT 게이트웨이 필요
+1. NAT 게이트웨이 생성 : test-nat-gw, 퍼블릭서브넷 선택, 탄력적 IP 할당
+2. 프라이빗라우팅 라우팅 추가 : 0.0.0.0/0, NAT 게이트웨이
+3. curl ifconfig.me 바뀐 ip확인
+
+IAM 사용자 생성 : lab-edu-iam-user-01, 직접 정책 연결(AdministratorAccess 선택)
+보안 자격 증명 : 액세스키 만들기 - cli - .csv 다운받고 완료
+MFA 디바이스 할당 : 인증 관리자 앱 - sf-access, 디바이스앱 - Google Authenticator 다운, +버튼의 qr코드 스캔, 6자리 숫자 2번 입력
+콘솔 액세스 활성화 : 사용자 지정 암호 user1234!
+
+aws-cli 설치 후 커맨드에 aws configure 입력 후 iam에서 발급받은 액세스키 입력
+> aws configure
+AWS Access Key ID [None]: 
+AWS Secret Access Key [None]: 
+Default region name [None]: 
+Default output format [None]: 
+
+lab-edu-iam-user-01에 IAMFullAccess 권한 추가 후 사용자 생성 가능
+> aws iam create-user --user-name lab-edu-iam-user-02
+> aws iam list-users --output table
+
+삭제할때는 ec2부터 삭제한 뒤에 vpc 삭제
+
+

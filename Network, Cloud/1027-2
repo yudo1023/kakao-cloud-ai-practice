@@ -1,0 +1,72 @@
+
+import java.text.SimpleDateFormat
+
+def TODAY = (new SimpleDateFormat("yyyyMMdd")).format(new Date())
+
+pipeline {
+    agent any
+    environment {
+        strDockerTag = "${TODAY}_${BUILD_ID}"
+        strDockerImage ="yujungk1023/stswebjpa:${strDockerTag}"
+    }
+
+    stages {
+        stage('Github Pull') {
+            steps {
+                git branch: 'main', url:'https://github.com/yudo1023/cicd-test.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'chmod u+x mvnw'
+                sh './mvnw clean package -Dmaven.test.skip=true'
+            }
+        }
+
+        stage('Docker Image Build') {
+            steps {
+                script {
+                    oDockImage = docker.build(strDockerImage, "--build-arg VERSION=${strDockerTag} -f Dockerfile .")
+                }
+            }
+        }
+
+        # docker auth credentials 추가하고 사용
+        stage('Docker Image Push') {
+            steps {
+                script {
+                    docker.withRegistry('', 'docker-auth') {
+                        oDockImage.push()
+                    }
+                }
+            }
+        }
+
+        stage('Staging Deploy') {
+            steps {
+                sshagent(credentials: ['ssh-auth']) {
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@210.109.83.250 docker container rm -f stswebjpa"
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@210.109.83.250 docker container run \
+                                        -d \
+                                        -p 80:8080 \
+                                        -v /home/ubuntu/upload:/app/upload \
+                                        --name=stswebjpa \
+                                        ${strDockerImage} "
+                }
+            }
+        }
+
+        stage('Approval') {
+            steps {
+                script {
+                    emailext attachmentsPattern: '**/test*.txt',
+		            body: "새로운 코드로 배포가 완료됐습니다.",
+                    subject: '[Jenkins] 배포완료', 
+                    to: 'kms@goodee.co.kr',
+                    mimeType: 'text/html'
+                }
+            }
+        }
+    }
+}
