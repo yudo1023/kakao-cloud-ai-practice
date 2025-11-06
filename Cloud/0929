@@ -1,0 +1,35 @@
+# vpn
+# R1 cli
+conf t
+# vpn tunneling
+int tunnel 1
+ip address 10.1.1.1 255.255.255.0
+tunnel source g0/1
+tunnel destination 2.2.12.2
+# static 설정
+ip route 192.168.1.0 255.255.255.0 10.1.1.2
+
+# R2 cli
+conf t
+# vpn tunneling
+int tunnel 2
+ip address 10.1.1.2 255.255.255.0
+tunnel source g0/0
+tunnel destination 2.2.12.1
+# static 설정
+ip route 172.16.0.0 255.255.255.0 10.1.1.1
+
+# 
+- 대칭키
+
+- 비대칭키
+
+- ssh 인증방식
+1) 패스워드 인증
+2) 개인키를 이용한 인증
+    개인키와 공개키를 이용해서 사용자 인증
+    세션키(대칭키)를 개인키와 공개키를 이용해 클라이언트와 서버가 공유함
+    이후 데이터는 세션키를 통해서 암복호화
+3) 키 생성
+    ssh-keygen -t rsa -b 2048
+    

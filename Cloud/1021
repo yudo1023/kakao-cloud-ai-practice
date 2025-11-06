@@ -1,0 +1,66 @@
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/ # kubectl 명령어를 전역에서 사용 가능하도록 설정
+
+kubectl version --client
+
+
+wget https://objectstorage.kr-central-2.kakaocloud.com/v1/c11fcba415bd4314b595db954e4d4422/public/docs/binaries-kic-iam-auth/Linux%20x86_64%2064Bit/kic-iam-auth
+
+chmod +x kic-iam-auth
+sudo mv kic-iam-auth /usr/local/bin/ # kic-iam-auth 명령어를 전역에서 사용 가능하도록 설정
+
+kc-kdt-sfacspace2025
+
+# 삭제
+kubectl delete pod <name>
+kubectl delete -f <file.yaml>
+
+문제 1. 단일 컨테이너 Pod 생성하기
+
+목표: Nginx 웹 서버를 실행하는 단일 컨테이너 Pod를 생성하시오.
+조건:
+Pod 이름: nginx-pod
+컨테이너 이름: nginx-container
+이미지: nginx:latest
+포트: 80
+추가 미션:
+Pod가 정상적으로 실행 중인지 확인하고, kubectl port-forward 명령으로 로컬에서 접근해보세요.
+
+문제 2. YAML 파일로 Pod 생성하기
+목표: YAML 매니페스트 파일을 사용해 Pod를 생성하시오.
+조건:
+파일 이름: myapp-pod.yaml
+Pod 이름: myapp-pod
+컨테이너 이름: myapp-container
+이미지: httpd:2.4 (Apache HTTP Server)
+포트: 8080
+추가 미션:
+kubectl apply -f myapp-pod.yaml 실행 후, Pod의 상태를 확인하세요.
+
+문제 3. 환경 변수 설정된 Pod 만들기
+목표: 환경 변수를 가진 Pod를 생성하시오.
+조건:
+Pod 이름: env-pod
+컨테이너 이미지: busybox
+환경 변수:
+APP_MODE=dev
+DB_HOST=localhost
+실행 명령: env
+추가 미션:
+Pod가 실행된 후, kubectl logs env-pod 명령으로 환경 변수가 출력되는지 확인하세요.
+
+문제 4. 다중 컨테이너 Pod 생성하기
+목표: 두 개의 컨테이너가 함께 실행되는 Pod를 생성하시오.
+조건:
+Pod 이름: multi-container-pod
+첫 번째 컨테이너:
+이름: nginx-container
+이미지: nginx
+두 번째 컨테이너:
+이름: sidecar-container
+이미지: busybox
+명령: while true; do echo 'sidecar running'; sleep 10; done
+추가 미션:
+두 컨테이너의 로그를 각각 확인해보세요 (kubectl logs -c 옵션 사용).

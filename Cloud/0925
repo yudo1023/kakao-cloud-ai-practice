@@ -1,0 +1,62 @@
+게이트웨이는 장치가 아님 -> 
+
+as번호 : autonomous system number
+망식별 번호(조직을 식별하기 위한 번호)
+
+as내부에서 동작하는 라우팅 프로토콜 : RIP, OSPF => IGP
+as간에 동작하는 라우팅 프로토콜 : BGP => EGP
+
+---
+
+172.16.0.0/16 ~ 172.31.0.0/16 슈퍼네팅
+
+16 0001 0000
+17 0001 0001
+18 0001 0010
+19 0001 0011
+20 0001 0100
+
+31 0001 1111
+
+172.16.0.0/12
+
+---
+
+172.30.16.0/24 ~ 172.30.31.0/24 슈퍼네팅
+172.30.16.0/20
+서브넷 마스크 : 255.255.240.0 (1111 1111 . 1111 1111 . 1111 0000 . 0000 0000)
+와일드카드 마스크 : 0.0.15.255 (0000 0000 . 0000 0000 . 0000 1111 . 1111 1111)
+
+---
+Standard ACL
+192.168.1.10 호스트만 172.16.2.0/24 네트워크에 접근 가능
+R1> enable
+Password: cisco
+R1# configure termial
+
+# 설정
+R1(config)#access-list 1 permit host 192.168.1.10
+
+# 적용
+R1(config)#int g0/0
+R1(config-if)#ip access-group 1 in
+
+Extended ACL
+192.168.1.10 호스트는 SVR1의 웹서비스만 사용 가능. 나머지 트래픽 차단
+그 외 다른 트래픽은 모두 허용
+
+# 설정
+R1(config)#access-list 100 permit tcp host 192.168.1.10 host 172.16.2.100 eq 80
+R1(config)#access-list 100 deny ip host 192.168.1.10 host 172.16.2.100
+R1(config)#access-list 100 permit ip any any
+
+# 적용
+R1(config)#int g0/0
+R1(config-if)#ip access-group 100 in
+
+**과제**
+ping결과
+서버0 -> 서버1,2,3 가능
+서버1 -> 서버2,3 불가
+
+r1, r2, r3 라우터 static 으로 0.0.0.0 디폴트 설정한뒤 TG 라우터에 r1, r2, r3 라우터를 거쳐 가는 static을 넣어줘도 가능

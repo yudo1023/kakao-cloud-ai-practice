@@ -1,0 +1,119 @@
+##svr1에 pc1만 접속이 가능하게
+
+#1. svr1에 ssh 접속 설정
+line vty 0 4
+login local
+exit
+ip domain-name cloudai.com
+crypto key generate rsa
+username admin password cisco
+
+#2. pc1만 접속이 가능하게(ssh를 설정해줬기 때문에 standard acl 적용)
+conf t
+access-list 1 permit 192.168.1.20 0.0.0.0
+access-list 1 deny 0.0.0.0 255.255.255.255
+end 
+
+#3. 방화벽 설정
+conf t
+line vty 0 4
+access-class 1 in
+
+---
+
+#svr2 ftp서버에 pc0만 접속이 가능하게
+192.168.1.10/32 -> TCP 21, 172.16.2.200 permit
+access-list 101 permit tcp host 192.168.1.10 host 172.16.2.200 eq 21
+access-list 101 deny ip any any
+
+int g0/0
+ip access-group 101 in
+
+---
+
+#기존 규칙 제거
+no ip access-group 101 in 
+
+# pc1에서 svr1에 ping을 허용하지 않게
+192.168.1.20/32 -> icmp 172.16.2.200/32
+access-list 102 deny icmp host 192.168.1.20 host 172.16.2.200
+access-list 102 permit ip any any
+#access-list 102 deny ip any any # 위에 이미 허용을 해주기때문에 적용 되진 않음
+int g0/0
+ip access-group 102 in
+
+
+---
+
+#정적 nat
+
+#inside-svr와 r1의 공인주소를 매핑하여 공인주소로 들어오는 트래픽을 inside-svr로 전송되게
+ip nat inside source static 10.1.1.100 2.2.12.1
+int g0/0
+ip nat inside
+int s0/0/0
+ip nat outside
+
+# nat 테이블
+sh ip nat translation
+
+#inside-svr의 웹서비스에만 접속가능하도록 nat 설정(포트포워딩)
+ip nat inside source static tcp 10.1.1.100 80 2.2.12.1 8080
+
+#inside-svr의 ftp서비스에 외부에서의 접속 허용(21, 3.3.3.1)
+ip nat inside souce static tcp 10.1.1.100 21 3.3.3.1 21
+
+---
+
+#동적 nat
+
+#내부네트워크(10.1.1.0/24)의 호스트들이 외부(인터넷)와 통신 가능하도록 nat 설정(2.2.2.12.1)
+#1. 내부 네트워크 호스트를 acl로 표현
+access-list 1 permit 10.1.1.0 0.0.0.255 # 트래픽 분류 목적
+
+#2-1. 공인주소로 변환 : 외부 인터페이스 IP주소
+ip nat inside source list 1 interface s0/0/0
+
+#grep과 유사함 ip nat이 들어있는걸 보여달라는 표현
+sh run | include ip nat
+
+#2-2. 공인주소로 변환 : 공인주소 풀의 IP주소
+ip nat pool testpool 3.3.3.1 3.3.3.2 netmask 255.255.255.0
+ip nat inside source list 1 pool testpool #동적 nat => 설정한 IP로만 구별. 3.3.3.1, 3.3.3.2 2개로만 접속 가능
+ip nat inside source list 1 pool testpool overload #PAT(다중 nat) => 포트번호까지 구별함
+
+---
+
+#cisco ios에 dhcp서비스 구축
+ip dhcp pool LAN
+network 10.1.1.0 255.255.255.0
+default-router 10.1.1.254
+dns-server 8.8.8.8
+exit
+ip dhcp excluded-address 10.1.1.1 10.1.1.50
+ip dhcp excluded-address 10.1.1.254
+
+ip dchp pool LAN2
+network 100.100.100.0 255.255.255.0
+default-router 100.100.100.254
+dns-server 1.1.1.1
+exit
+ip dhcp excluded-address 100.100.100.201 100.100.100.254
+
+#R3
+int g0/0
+ip helper-address 2.2.12.1
+# => r1을통해서 pc1에도 dhcp로 받아옴
+
+-------
+
+172.16.0.0/16
+
+172.16.0.0
+172.16.32.0
+172.16.64.0
+172.16.96.0
+172.16.128.0
+172.16.160.0
+172.16.192.0
+172.16.224.0

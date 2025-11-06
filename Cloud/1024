@@ -1,0 +1,31 @@
+kubectl create secret docker-registry kc-cr-secret \
+--docker-server=kc-sfacspace02.kr-central-2.kcr.dev \
+--docker-username=d3e4cfd009f049d1aadd1536eb123343 \
+--docker-password=ced89ee9144a59ddbca49f1bb9476f663e477e42c40bd6a077f0be5abf0eb823c70df0
+
+
+IAM 액세스키 :   d3e4cfd009f049d1aadd1536eb123343
+보안액세스키 :  ced89ee9144a59ddbca49f1bb9476f663e477e42c40bd6a077f0be5abf0eb823c70df0
+
+vm생성
+퍼블릭: 
+bastion-host-kyj
+61.109.238.49
+
+nat-svr-kyj
+
+
+프라이빗: 
+web-svr1-kyj
+10.0.32.117
+
+app-svr1-kyj
+
+키페어: keypair-kyj.pem
+
+라우팅테이블 : nat-rt-kyj
+
+sudo hostnamectl set-hostname web1-10-0-115-135
+
+로드밸런서: app-lb-kyj
+대상그룹: app-tg-kyj
