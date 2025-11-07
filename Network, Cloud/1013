@@ -1,0 +1,53 @@
+*single region vpc peering
+- vpc: lab-edu-vpc-ap-02, 10.10.0.0/16
+- 서브넷 생성
+lab-edu-sub-pub2-01, 10.10.0.0/24, ap-southeast-2a
+lab-edu-sub-pri2-01, 10.10.16.0/24
+- 인터넷게이트웨이 : lab-edu-igw-ap2
+- 라우팅테이블 
+lab-edu-rtb-pub2
+lab-edu-rtb-pri2
+- ec2
+lab-edu-ec2-test, amazon linux2, t3.micro, lab-edu-vpc-ap-02, lab-edu-sub-pub2-01, bastion-host-ap02
+bastion-host-ap02 인바운드 규칙 추가 : icmp, 0.0.0.0/0
+
+- 피어링 연결
+이름 : demo-peering
+vpc 요청 : lab-edu-vpc-ap-01
+vpc 수락 : lab-edu-vpc-ap-02
+내 계정, 현재 리전
+생성 후 작업에서 요청 수락
+- 라우팅테이블에 피어링 연결 추가
+lab-edu-rtb-pub2 라우팅에 10.0.0.0/16, 피어링 연결
+lab-edu-rtb-pub 라우팅에 10.10.0.0/16, 피어링 연결
+
+*multi region vpc peering
+프랑크푸르트
+- vpc: demo-vpc, 10.20.0.0/16
+- 서브넷: pub-subnet, 10.20.0.0/24
+igw
+- 라우팅테이블: pub-subnet-rtb
+- ec2: demo-svr
+
+*2개 이상의 vpc 연결
+transit gateway
+
+*aws private link
+1단계
+프론트 : lab-edu-vpc-ap-01(10.0.0.0/16)
+lab-edu-sub-pub-01(서브넷, 10.0.0.0/24) - ec2(web server : 10.0.0.189(13.125.235.224))
+백엔드 : lab-edu-vpc-ap-02(10.10.0.0/16)
+lab-edu-sub-pri2-01(서브넷, 10.10.0.0/24) - ec2(api server: 10.10.0.118)
+2단계
+-대상그룹
+ip주소 선택, tcp 80 선택, lab-edu-vpc-ap-02, 10.10.0.118:80 포함
+-로드밸런서
+nlb, backend-lb, lab-edu-vpc-ap-02, 대상그룹(backend-tg추가)
+3단계
+-엔드포인트 서비스
+backend-ep-svc, backend-lb 선택, IPv4체크
+com.amazonaws.vpce.ap-northeast-2.vpce-svc-070b471d19cec4a31
+4단계
+-엔드포인트
+backend-ep, nlb 및 gwlb를 사용하는 엔드포인트 서비스 선택, 위에서 생성한 엔드포인트 서비스 입력, ap-01, 보안그룹 lab-edu-sg-web
+엔드포인트 서비스의 엔드포인트 연결에 작업을 눌러 수락

@@ -1,0 +1,96 @@
+문제 1: Named Volume을 이용한 데이터 지속성
+MySQL 컨테이너를 생성할 때 db_data라는 Named Volume을 사용하여 다음을 구현하세요.
+
+요구사항:
+MySQL 이미지를 사용하여 컨테이너 생성 (root password: mysql123)
+db_data Named Volume을 /var/lib/mysql에 마운트
+컨테이너 내부에서 테스트 데이터베이스와 테이블 생성
+컨테이너 삭제 후 새로운 컨테이너 생성 시 데이터가 유지되는지 확인
+docker run -d --name mydb -v mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mysql123 mysql:8.0
+확인 방법:
+bash# 첫 번째 컨테이너에서 데이터 생성
+docker exec <container-name> mysql -uroot -pmysql123 -e "CREATE DATABASE testdb; USE testdb; CREATE TABLE users(id INT, name VARCHAR(50));"
+docker exec mydb mysql -uroot -pmysql123 -e "CREATE DATABASE testdb; USE testdb; CREATE TABLE users(id INT, name VARCHAR(50));"
+docker exec mydb mysql -uroot -pmysql123 -e "USE testdb; CREATE TABLE users(id INT, name VARCHAR(50));"
+# 데이터 확인
+docker exec <container-name> mysql -uroot -pmysql123 -e "USE testdb; SHOW TABLES;"
+docker exec mydb mysql -uroot -pmysql123 -e "USE testdb; SHOW TABLES;"
+
+# 컨테이너 삭제 후 같은 볼륨으로 새 컨테이너 생성
+# 데이터가 남아있는지 확인
+
+
+문제 2: Bind Mount를 이용한 로컬 파일 공유
+로컬 호스트와 컨테이너 간 파일 공유를 구현하세요.
+
+요구사항:
+로컬 호스트에 /data/myfiles 디렉토리 생성
+해당 디렉토리에 index.html 파일 생성 (간단한 HTML 콘텐츠)
+Nginx 컨테이너를 생성하여 이 디렉토리를 /usr/share/nginx/html에 Bind Mount
+브라우저에서 EC2-IP주소:8080으로 접속하여 파일이 서빙되는지 확인
+
+docker run -d -v /home/ubuntu/website:/usr/share/nginx/html -p 8080:80 nginx
+
+확인 방법:
+bash# 로컬 파일 생성
+mkdir -p /data/myfiles
+echo "<h1>Hello from Docker!</h1>" > /data/myfiles/index.html
+
+sudo mkdir -p /data/myfiles
+sudo sh -c 'echo "<h1>Hello from Docker!</h1>" > /data/myfiles/index.html'
+
+
+# Nginx 컨테이너 생성
+docker run -d --name nginx-server -p 8080:80 -v /data/myfiles:/usr/share/nginx/html nginx:latest
+
+# 브라우저 또는 curl로 확인
+curl http://localhost:8080
+
+문제 3: Custom Bridge Network를 이용한 컨테이너 통신
+커스텀 브리지 네트워크를 만들고, 두 개의 컨테이너가 네트워크를 통해 통신하도록 구현하세요.
+요구사항:
+
+my-bridge 커스텀 브리지 네트워크 생성
+MySQL 컨테이너를 my-bridge 네트워크에 연결 (이름: mysql-server)
+Nginx 컨테이너를 my-bridge 네트워크에 연결 (이름: nginx-server)
+Nginx 컨테이너 내부에서 MySQL 컨테이너와 통신 가능한지 확인 (호스트명으로 접근)
+
+확인 방법:
+bash# 네트워크 생성
+docker network create my-bridge
+
+# MySQL 컨테이너 생성
+docker run -d --name mysql-server --network my-bridge \
+  -e MYSQL_ROOT_PASSWORD=pass123 mysql:latest
+
+# Nginx 컨테이너 생성
+docker run -d --name nginx-server --network my-bridge nginx:latest
+
+docker exec nginx-server apt update; docker exec nginx-server apt install -y iputils-ping
+
+# Nginx 컨테이너에서 MySQL로 접근 가능한지 확인
+docker exec nginx-server ping mysql-server
+
+# MySQL이 정상 작동하는지 확인 (mysql-server로 접근)
+docker exec mysql-server mysql -uroot -ppass123 -e "SELECT VERSION();"
+
+문제 4: 포트 매핑을 이용한 외부 접근 제어
+여러 개의 웹 서버를 다른 포트로 실행하고 접근을 제어하세요.
+요구사항:
+
+첫 번째 Nginx 컨테이너: 포트 8000으로 호스트에 노출
+두 번째 Nginx 컨테이너: 포트 8001로 호스트에 노출
+세 번째 Nginx 컨테이너: 포트 매핑 없이 내부 네트워크만 사용
+각 컨테이너마다 다른 HTML 콘텐츠 제공 (구분 가능하도록)
+브라우저에서 localhost:8000과 localhost:8001로 접속 시 다른 페이지가 보이는지 확인
+
+
+mkdir -p ~/nginx1 ~/nginx2 ~/nginx3
+echo "<h1>first Nginx container: port 8000</h1>" > ~/nginx1/index.html
+echo "<h1>second Nginx container: port 8001</h1>" > ~/nginx2/index.html
+echo "<h1>third Nginx container: inner network </h1>" > ~/nginx3/index.html
+docker network create mynet
+docker run -d --name nginx1 --network mynet -p 8000:80 -v ~/nginx1:/usr/share/nginx/html nginx
+docker run -d --name nginx2 --network mynet -p 8001:80 -v ~/nginx2:/usr/share/nginx/html nginx
+docker run -d --name nginx3 --network mynet -v ~/nginx3:/usr/share/nginx/html nginx
+

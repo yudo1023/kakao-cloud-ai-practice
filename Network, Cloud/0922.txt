@@ -1,0 +1,344 @@
+rpm -qa | grep bind
+
+dnf install bind-chroot # 리눅스용 dns서버 프로그램 : bind
+
+rpm -qa | grep bind
+
+systemctl start named # 패키지명: bind, 데몬명 : named
+
+systemctl status named
+
+dnf install -y net-tools
+
+netstat -ntlp
+
+rpm -qa | grep bind
+
+rpm -qc bind-9.16.23-31.el9_6.aarch64
+
+vi named.conf
+
+systemctl restart named
+
+netstat -ntulp | grep :53
+
+systemctl status named
+
+systemctl enable named
+
+dnf install -y firewalld
+
+systemctl start firewalld
+
+systemctl enable firewalld
+
+systemctl status firewalld
+
+firewall-cmd --list-services
+
+firewall-cmd --add-service=dns
+
+firewall-cmd --list-services
+-> nslookup
+   server 192.168.56.200
+
+systemctl stop named
+
+systemctl start named-chroot
+
+ls /var/named/chroot
+
+cd etc
+
+less named.conf
+
+# zone 추가
+# /var/named/chroot/etc
+vi named.rfc1912.zones
+# 추가 내용
+zone "akong.com" IN {
+	type master;
+	file "akong.zone";
+};
+
+cd /var/named/chroot/var/named
+
+# zone파일 생성
+# /var/named
+vi akong.zone
+# 추가 내용
+$TTL 86400
+@	IN SOA	ns	admin (
+			20250922
+			1H
+			3H
+			1W
+			1D )
+
+	IN NS 	ns
+
+ns	IN A	192.168.56.200
+www	IN A	192.168.56.200
+ftp	IN A	192.168.56.201
+
+systemctl restart named-chroot
+
+# zone 추가
+# /var/named/chroot/etc
+vi named.rfc1912.zones
+# 추가 내용
+zone "naver.com" IN {
+	type master;
+	file "naver.zone";
+};
+
+# zone파일 생성
+# /var/named
+vi naver.zone
+# 추가 내용
+$TTL 86400
+@	IN SOA	ns	admin (
+			20250922
+			1H
+			3H
+			1W
+			1D )
+
+	IN NS 	ns
+
+ns	IN A	192.168.56.200
+www	IN CNAME web1.a.b.c.akong.com.
+
+# zone 추가
+# /var/named/chroot/etc
+vi named.rfc1912.zones
+# 추가 내용
+zone "56.168.192.in-addr.arpa" IN {
+	type master;
+	file "naver.rev";
+};
+
+# 역방향 zone 파일
+# /var/named
+vi naver.rev
+# 추가 내용
+$TTL 86400
+@	IN SOA	ns.naver.com.	admin.naver.com. (
+			20250922
+			1H
+			3H
+			1W
+			1D )
+
+	IN NS 	ns.naver.com.
+
+200	IN PTR	www.naver.com.
+201	IN PTR	ftp.naver.com.
+
+
+** 실습 **
+domain 등록  :  rocky1(dns서버) 192.168.80.129, rocky2(웹서버, ftp서버) 192.168.80.130
+1. abc.com
+ ns    :  192.168.80.129
+ www :  192.168.80.130
+ ftp   :   192.168.80.130
+
+2. example.com
+ns    : 192.168.80.129
+www1 : 192.168.80.130
+ftp1   :  192.168.80.130
+
+mac 또는 윈도우 :
+nslookup
+server 192.168.80.129
+www.abc.com
+www.example.com
+
+3. www.example.com을 별칭으로 하는 CNAME www.kakaoai.edu.abc.com 설정
+
+---
+
+dnf install epel-release -y
+
+dnf install nginx -y
+
+firewall-cmd --add-service=http
+
+docker run -d --name websvr1 -p 8081:80 httpd
+
+docker run -d --name websvr2 -p 8082:80 httpd
+
+docker ps
+
+curl localhost:8081
+
+curl localhost:8082
+
+mkdir ~/lab
+
+echo "<h1> WebSVR1 </h1>" > index.html
+
+echo "<h1> WebSVR2 </h1>" > index2.html
+
+docker cp index.html websvr1:/usr/local/apache2/htdocs/index.html
+
+docker cp index2.html websvr2:usr/local/apache2/htdocs/index.html
+
+# 80에 접근을 하면 컨테이너의 웹서버로 연결이 되도록
+
+vi /etc/nginx/conf.d/load_balancer.conf
+
+
+upstream backend {
+    server rocky2-IP주소:8081;
+    server rocky3-IP주소:8082;
+}
+
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+
+# 로드밸런싱으로 동작 
+
+** 실습 **
+1. 위 설정으로 로드밸런서 구성
+2. 두 개의 백엔드 서버 실행
+3. 윈도우 브라우저에서 Rocky1의 웹서버에 여러 번 웹접속을 하여 라운드로빈 확인
+4. sticky 세션 및 weight 설정 실습
+
+vi /etc/nginx/conf.d/load_balancer.conf
+
+# weight 설정
+upstream backend {
+    server localhost:8081 weight=3;
+    server localhost:8082;
+}
+
+# sticky 세션 설정 -> 상용버전만 가능
+upstream backend {
+    sticky cookie srv_id expires=1h path=/;
+    server localhost:8081;
+    server localhost:8082;
+}
+
+# ip hash 설정
+upstream backend {
+    ip_hash; # 접속 ip값 자동으로 받아옴
+    server localhost:8081;
+    server localhost:8082;
+}
+
+
+** 실습 과제 **
+1. 다음 조건에 맞는 리버스 프록시 구성 파일을 작성하시오:
+    - 외부 요청 포트: 8080
+    - 내부 포트: 9001
+    - 헤더 로그 남기기
+
+# vi /etc/nginx/conf.d/reverse_proxy.conf
+
+# 헤더 로그 남기기
+헤더로그 남기기 위한 설정
+# vi /etc/nginx/conf.d/load_balancer.conf
+upstream backend {
+    server 192.168.56.210:9001;
+    server 192.168.56.210:9002;
+}
+
+log_format proxy_log '$remote_addr - $remote_user [$time_local] '
+                     '"$request" $status $body_bytes_sent '
+                     'upstream: $upstream_addr '
+                     'upstream_status: $upstream_status '
+                     'resp_header[content-type]: $upstream_http_content_type';
+
+server {
+    listen 8080;
+
+
+    access_log /var/log/nginx/proxy_access.log proxy_log;
+
+
+    location / {
+        proxy_pass http://backend/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+
+# 헤더 로그 확인 
+tail -f /var/log/nginx/proxy_access.log 
+
+
+2. 다음 조건에 맞는 로드밸런서 설정 구성:
+    - 서버 1: `localhost:9001` (가중치 2)
+    - 서버 2: `localhost:9002` (가중치 1)
+    - sticky session 없이 라운드로빈 동작
+
+
+
+
+rocky2에서 getenforce 확인후 enforcing이면 setenfcore 0으로 해주기
+
+
+
+정답
+rocky2에서
+cd /etc/nginx
+vi nginx.conf 에서 9001
+eoho "<h1> Rocky2 WebServer </h1>" > /usr/share/nginx/html/index.html
+getenforce
+setenfcore 0
+systemctl restart nginx
+firewall-cmd --add-port=9001/tcp
+
+
+rocky1
+vi /etc/nginx/conf.d/reverse_proxy.conf
+```
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://rocky2 ip 주소:9001;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+rocky2
+systemctl stop nginx
+systemctl start docker
+docker run -d --name web1 -p 9001:80 httpd
+docker run -d --name web2 -p 9002:80 httpd
+echo "<h1> Rocky2 WebSVR1 </h1>" > index1.html
+echo "<h1> Rocky2 WebSVR2 </h1>" > index2.html
+docker cp index1.html websvr1:/usr/local/apache2/htdocs/index.html
+docker cp index2.html websvr2:/usr/local/apache2/htdocs/index.html
+vi /etc/nginx/conf.d/load_balancer.conf
+````
+upstream backend {
+    server rocky2 ip 주소:9001;
+    server rocky2 ip 주소:9002;
+}
+
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+systemctl restart nginx
+
+
+

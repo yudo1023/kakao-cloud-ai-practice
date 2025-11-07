@@ -1,0 +1,179 @@
+*FTP 서비스*
+# vsftpd 설치
+dnf install -y vsftpd
+
+# vsftpd 설치 확인
+rpm -qa | grep vsftpd
+
+# vsftpd 서비스 시작
+systemctl enable vsftpd --now
+systemctl status vsftpd
+
+# ftp 방화벽 열어두기
+firewall-cmd --permanent --add-service=ftp #--permanent : 영구 적용
+firewall-cmd --reload
+firewall-cmd --list-services
+
+# 포트 열려있는지 확인
+netstat -ntlp | grep :21
+
+# 다른 터미널에서 ftp 서버 접속 확인
+ftp 서버IP
+ftp서버 아이디, 비번 로그인
+
+# vsftpd 기본 설정 파일
+vi /etc/vsftpd/vsftpd.conf
+
+# 익명 사용자 허용
+anonymous_enable=YES
+local_enable=NO
+anon_upload_enable=YES 주석 해제
+# 설정 변경시 ftp 서버IP 로그인 시 기본 사용자 접속 불가 anonymous로 로그인 가능
+
+# ftp 서버 밖 로컬의 디렉토리 확인
+ftp> !ls
+
+# 사용자 홈디렉토리 설정
+chroot_local_user=YES 주석 해제
+chroot_list_enable=YES 주석 해제
+chroot_list_file=/etc/vsftpd/chroot_lis 주석 해제
+allow_writeable_chroot=YES 추가
+
+# passive 모드로 변경
+ftp> quote pasv
+
+# nat 환경 설정
+vi /etc/vsftpd/vsftpd.conf
+listen=YES
+listen_ipv6=NO
+pasv_address=공인 IP
+
+ftp> quote passv
+
+# 사용자 인증
+# 사용자 생성
+useradd -s /sbin/nologin ftpuser
+passwd ftpuser
+grep ftpuser /etc/passwd
+
+# 사용자 업로드 폴더 생성
+mkdir /home/ftpuser/upload
+ls -ld /home/ftpuser/upload/
+chown ftpuser.ftpuser upload
+
+# 
+echo "/sbin/nologin" >> /etc/shells
+
+
+*NFS 서비스*
+# NFS서버
+dnf install -y nfs-utils
+systemctl enable --now nfs-server
+firewall-cmd --permanent --add-service=nfs
+
+vi /etc/exports # 공유 설정 추가
+exportfs -a # 설정 적용
+exportfs # 현재 설정 확인
+
+# NFS 클라이언트
+dnf install -y nfs-utils
+
+# 공유 디렉토리 마운트
+mkdir /mnt/nfs-mp1
+mount -t nfs 서버IP:/var/nfs-share /mnt/nfs-mp1
+
+# 공유 디렉토리 확인
+df -Th
+
+mount | grep nfs
+
+# NFS 서버 공유 디렉토리 권한 변경 -> 클라이언트에서 공유 디렉토리에 파일 쓰기 가능
+chmod o+w /var/nfs-share
+# 클라이언트에서 파일 생성 시 nobody로 생성됨(서버에서도 nobody로 확인됨)
+
+#
+chmod o-w /var/nfs-share
+vi /etc/exportfs
+no_root_squash 추가 : nobody가 아니라 root로 인정
+
+# NFS 서버 공유 디렉토리 읽기 전용
+mkdir /var/nfs-share2
+echo "/var/nfs-share2       192.168.56.200(ro)" >> /etc/exports
+exportfs -a
+
+# 일반사용자로 로그인했을 경우
+echo "/var/nfs-share3       192.168.56.200(rw, nosuid)" >> /etc/exports
+-> 허가 거부. sudo를 붙여도 동일함.
+
+echo "/var/nfs-share3       192.168.56.200(rw, nosuid)" | sudo tee -a /etc/exports
+-> tee를 root의 권한으로 쓰기 가능
+
+
+*Samba 서비스*
+#서버
+dnf install -y samba samba-client
+systemctl enable --now smb
+netstat -ntlp | grep :445
+# samba 사용자 등록
+smbpasswd -a admin
+
+#클라이언트
+dnf install -y samba
+smbclient -U admin //192.168.56.210/admin
+
+# 클라이언트에 cifs
+mkdir /mnt/samba-mp
+mount -t cifs //192.168.56.210/admin /mnt/samba-mp -o username=admin,password=1234
+
+# samba 공유 디렉도리 생성
+
+
+
+## 1️⃣ FTP 서버 구축(Rocky2 서버)
+
+### 과제
+
+1. `vsftpd` 설치 후 **익명 접속 허용** + **로컬 사용자 업로드 가능** 설정
+2. `/srv/ftp/pub` 디렉토리에 파일 업로드
+3. Windows/mac 클라이언트에서  **ftp** 접속 후 passive 모드 확인
+    - `quote pasv` 명령으로 모드 확인
+4. `chroot_local_user=YES` 적용 후 특정 사용자 격리 테스트
+
+✅ 제출물: FTP 접속 성공 화면 캡처 (Linux/Windows), `vsftpd.conf` 변경 설정
+
+---
+
+## 2️⃣ NFS 서버 구축(Rocky2 서버)
+
+### 과제
+
+1. `/srv/nfs/share` 디렉토리를 생성 후 특정 클라이언트 IP 대역(예: `192.168.XX.0/24`)에 read/write 권한 부여
+2. Linux 클라이언트에서 `/mnt/nfs` 마운트
+    
+    ```bash
+    sudo mount -t nfs 서버주소:/srv/nfs/share /mnt/nfs
+    
+    ```
+    
+3. NFS 공유 디렉토리에서 testfile 파일 생성 → 서버에서 반영 여부 확인
+
+✅ 제출물: `exports` 파일 내용, 클라이언트에서 파일 생성/확인 스크린샷
+
+---
+
+## 3️⃣
+
+## Samba 서버 구축(Rocky2)
+
+### 과제
+
+1. `/srv/samba/share` 디렉토리 생성 후 **윈도우/macOS 접근 가능**하게 공유 설정
+2. Samba 계정: share_user (`smbpasswd`) 생성 → Windows 탐색기에서 `\\서버주소\share` 접속
+3. Linux에서도 `smbclient -L //서버주소 -U <user>`로 공유 확인
+
+추가 미션:
+
+- **Windows를 Samba 서버**로 설정 후 Linux 클라이언트에서 접근
+- **Linux를 Samba 서버**로 설정 후 Windows 클라이언트에서 접근 (양방향 테스트)
+
+✅ 제출물: Samba 설정 파일(`smb.conf`) 일부, Windows/mac  접속 캡처

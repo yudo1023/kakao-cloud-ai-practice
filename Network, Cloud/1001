@@ -1,0 +1,72 @@
+nat: 프라이빗 ip주소를 퍼블릭 ip주소로 바꿔주는 기능
+nat 게이트웨이: 프라이빗 서브넷의 ec2인스턴스를 인터넷 연결 가능하게 하는 기능
+
+1. vpc생성: demovpc1(192.168.0.0/16)
+2. 인터넷 게이트웨이 생성 후 VPC에 연결: demo-igw
+3. 서브넷 생성: 
+demo-pub-subnet(192.168.0.0/24)
+demo-pri-subnet(192.168.128.0/24)
+4. 라우팅테이블 생성: 
+demo-pub-rt => 라우팅 추가 0.0.0.0/0 igw
+demo-pri-rt
+5. 퍼블릭 서브넷 편집: 퍼블릭 IP주소 자동할당 체크
+6. NAT Gateway 생성: natgw
+7. demo-pri-rt에 라우팅 추가: 0.0.0.0/0 natgw
+8. demo-pri-subnet에 EC2 2대 생성(192.168.128.100, 192.168.128.200, Amazon Linux)
+demo-pub-subnet에 EC2 1대 생성(192.168.0.100, ubuntu)
+9. pri-svr1, pri-svr2에 nginx 설치
+
+pri-svr1
+sudo -i
+cd /usr/share/nginx/html
+echo "<h1> Web Server 1 </h1>" > index.html
+
+pri-svr2
+echo "<h1> Web Server 2 </h2>" > /usr/share/nginx/html/index.html
+-> sudo로 해도 권한 없다고 나옴
+echo "<h1> Web Server 2 </h2>" | sudo tee /usr/share/nginx/html/index.html
+
+private 보안그룹 인바운드 규칙 http 192.168.0.0/16 추가
+
+> curl 192.168.128.100
+<h1> Web Server 1 </h2>
+> curl 192.168.128.200
+<h1> Web Server 2 </h2>
+
+대상그룹
+- 유형: 인스턴스선택
+- 이름: demo-elb-group
+- 프로토콜: http, 80
+- VPC: demovpc1
+- 대상등록: 
+pri-svr1, pri-svr2 선택 후 아래에 보류 중인 것으로 포함 선택
+
+로드 밸런서
+- 유형: Application Load Balancer
+- 이름: demo-elb
+- 체계: 인터넷 경계
+- vpc: demovpc1
+- 가용영역:
+가용영역이 1개인 경우 서브넷을 하나 더 만들어서 생성하기
+demo-pub-subnet2 192.168.64.0/24 만들고 ip 자동할당 주고, public 라우팅 테이블 연결, 가용영역은 프라이빗 서브넷이랑 동일하게
+각 가용영역에 서브넷 연결
+- 보안그룹: demo-pub-sg
+- 대상그룹: demo-elb-group
+
+public 보안그룹에 http추가 0.0.0.0/0
+
+로드밸런싱 테스트: 로드밸런서 dns 이름
+
+
+
+**과제
+
+베스쳔 호스트에 aws 환경 변수 설정
+계정-AdministratorAccess-옵션1 복사
+export AWS_ACCESS_KEY_ID="AWS_TEMP_ACCESS_KEY_REDACTED"
+export AWS_SECRET_ACCESS_KEY="R5yijr1PxZACgiRqJHW8/yHc1xO8wnsNjR9uv1h0"
+export AWS_SESSION_TOKEN="IQoJb3JpZ2luX2VjEHYaDmFwLW5vcnRoZWFzdC0yIkcwRQIhAJ4WL0zYdxwf2jtdRPOvG80RlP4sUC6nne3otDTjjXZnAiBRdXQKazJJuuLiGPImQVsabMIfReq5fupobAS5cLL3SSrnAggQEAAaDDk3MDU0NzM1OTc1MCIMi8C3c0VHD2wh0EjrKsQCUgbpQei2Qfj++nIrxi6gIWx0/6md1UITNpTRzlw0r9zKg9D6C4fFIPm/+FlVs4gVVnCcMDOFtSk15+YWy4WiXsL6MWNwi1wwBbfHkUdEAnrueteXtnln/PupMcUzVzjWl1GtPk1LCds7HnvnnySkRa9XtgfIyE40kXGDDnP8RL6mgJKpxDrWGFE32gwzJqhfwx0qaUakbCVzhuWxdRR5BKZ/ixNEm4I25TJToJBakZ/8ciAQ1AsRER6uk31Y7xUfPdWcV9FTdwz8tFzqnO144PvDPaO6Ie87rCwyWnemaa8yswYLGyqBzuxwYTuyheaTb0owPE7GvqHTJVFJkAXycmE1Zlqzd29FSr1+x6dPxTIUk76fSsPPfWT7pMz/UhxCYwUyijZJR4IwMPoPglhdW+keCm4r50y8noyYepm9sjyC27gOMLaT88YGOqcBYKoqUpMy4S1LWD4Z+SYw7wNmhfMXqUa2AmzmtaXXBG3L/1O+qTS5hMChCkYBZBI7GuPZRVxu5CNxMMzv6Y0gr/gqjY9t1MfkFanJRAGsg6Tb/WWU+UyKjtaWtnmsIx2PfnBD4vOx6KcqOtmbLFqj8eWPWwk2L9Wh4jhLT10QNSdepQ+nkRoYv5AAs9q/UTmBjxk3l/Viu+QYFohC1Goz8hmcKVT7K9I="
+
+aws sts get-caller-identity로 확인
+
+netstat -ntlp로 22 확인
